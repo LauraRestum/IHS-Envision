@@ -571,6 +571,13 @@ button.ccard:hover { border-color: var(--green); }
   border-top: 2px solid var(--green); border-radius: 2px; padding: 30px 32px;
   display: flex; gap: 26px; align-items: center;
 }
+.contact-photo {
+  width: 118px; height: 118px; flex: 0 0 auto;
+  border-radius: 2px; object-fit: cover;
+  border: 1px solid var(--border-soft);
+}
+.contact-lines a { color: inherit; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.contact-lines a:hover { color: var(--green); }
 .contact-card .contact-name { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.01em; }
 .contact-card .contact-role { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-top: 4px; }
 .contact-card .contact-lines { font-size: 0.85rem; font-weight: 600; margin-top: 14px; line-height: 1.8; }

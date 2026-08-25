@@ -50,7 +50,6 @@ python3 tools/generate_qr.py
 
 | Item | Lives on | Status |
 |---|---|---|
-| Presenter email and phone (Dedra Griffin) | Slide 13 | Waiting on Dedra |
 | Session date | Slide 1 | Waiting on scheduling with Judy |
 | Prime Vendor contact names, emails, phones | Slide 12 | Outstanding from the federal channel team |
 | Second Prime Vendor: Concordance (CHS) vs Cardinal | Slide 12 notes | Confirm against the item data (data says CHS) |
