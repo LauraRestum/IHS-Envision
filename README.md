@@ -16,9 +16,7 @@ Import this repo in Vercel as a static project (no framework preset, no build co
 
 | Action | How |
 |---|---|
-| Advance / back | Right and Left arrows, Space, PageDown/PageUp, the Prev/Next buttons, edge tap zones, or swipe |
-| Steps vs slides | In live mode the advance action steps through in-slide builds first; in self-guided mode builds play automatically on slide entry |
-| Mode | "Mode" button in the bottom bar (persisted). Opening the presenter window switches to live mode |
+| Advance / back | Right and Left arrows, Space, PageDown/PageUp, the Prev/Next buttons, edge tap zones, or swipe. One press per slide; builds play automatically on slide entry |
 | Presenter notes | N toggles the notes drawer. All FILL and CONFIRM flags live there, visible in presenter view only |
 | Presenter window | P opens a synced window (notes, elapsed time, next-step preview) via BroadcastChannel |
 | Overview | O opens a jump-to-any-slide grid |

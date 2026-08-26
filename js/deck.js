@@ -5,7 +5,6 @@
   'use strict';
 
   var STORE_KEY = 'env-a11y';
-  var MODE_KEY = 'ihs-mspv-mode';
   var CHANNEL = 'ihs-mspv-deck';
 
   var root = document.documentElement;
@@ -14,7 +13,6 @@
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
   var total = slides.length;
   var cur = 0;
-  var stepIdx = 0;            /* steps revealed on the current slide (live mode) */
   var timeouts = [];
   var channel = ('BroadcastChannel' in window) ? new BroadcastChannel(CHANNEL) : null;
   var presenterWin = null;
@@ -37,8 +35,6 @@
   applyMotionClass();
   window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', applyMotionClass);
 
-  var mode = 'self';
-  try { mode = localStorage.getItem(MODE_KEY) || 'self'; } catch (e) { /* default stands */ }
 
   /* ---------- stage scaling ---------- */
 
@@ -73,25 +69,6 @@
   function stepsOf(slide) {
     return Array.prototype.slice.call(slide.querySelectorAll('[data-step]'))
       .sort(function (a, b) { return (+a.getAttribute('data-step')) - (+b.getAttribute('data-step')); });
-  }
-  /* Elements sharing a data-step value form one build group: a single
-     advance reveals the whole group with a short stagger, so a slide never
-     needs more than a few clicks. */
-  function groupsOf(slide) {
-    var groups = [];
-    var byStep = {};
-    stepsOf(slide).forEach(function (el) {
-      var n = el.getAttribute('data-step');
-      if (!byStep[n]) { byStep[n] = []; groups.push(byStep[n]); }
-      byStep[n].push(el);
-    });
-    return groups;
-  }
-  function revealGroup(group) {
-    group.forEach(function (el, i) {
-      if (motionReduced()) { el.classList.add('on'); }
-      else { later(function () { el.classList.add('on'); }, i * 70); }
-    });
   }
   function later(fn, ms) { timeouts.push(setTimeout(fn, ms)); }
   function clearTimers() { timeouts.forEach(clearTimeout); timeouts = []; }
@@ -187,28 +164,17 @@
     cur = n;
     var slide = slides[cur];
     slide.classList.add('active');
-    stepIdx = 0;
 
     var steps = stepsOf(slide);
-    var groups = groupsOf(slide);
-    if (mode === 'live' && !opts.revealAll && !motionReduced()) {
-      resetSteps(slide);
-      /* moments that depend on completed builds run once steps are done */
-      if (!groups.length) slideMoments(slide);
-      else runCountups(slide);
+    if (motionReduced()) {
+      revealAllSteps(slide);
+      slideMoments(slide);
     } else {
-      if (motionReduced()) {
-        revealAllSteps(slide);
-        slideMoments(slide);
-        stepIdx = groups.length;
-      } else {
-        resetSteps(slide);
-        steps.forEach(function (el, i) {
-          later(function () { el.classList.add('on'); }, 200 + i * 80);
-        });
-        stepIdx = groups.length;
-        later(function () { slideMoments(slide); }, 200 + steps.length * 80);
-      }
+      resetSteps(slide);
+      steps.forEach(function (el, i) {
+        later(function () { el.classList.add('on'); }, 200 + i * 80);
+      });
+      later(function () { slideMoments(slide); }, 200 + steps.length * 80);
     }
 
     document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
@@ -222,27 +188,10 @@
   }
 
   function advance() {
-    var slide = slides[cur];
-    var groups = groupsOf(slide);
-    if (mode === 'live' && !motionReduced() && stepIdx < groups.length) {
-      revealGroup(groups[stepIdx]);
-      stepIdx++;
-      if (stepIdx === groups.length) slideMoments(slide);
-      broadcastState();
-      return;
-    }
     if (cur < total - 1) goTo(cur + 1);
   }
 
   function back() {
-    var slide = slides[cur];
-    if (mode === 'live' && stepIdx > 0) {
-      var groups = groupsOf(slide);
-      stepIdx--;
-      groups[stepIdx].forEach(function (el) { el.classList.remove('on'); });
-      broadcastState();
-      return;
-    }
     if (cur > 0) goTo(cur - 1, { revealAll: true });
   }
 
@@ -277,11 +226,8 @@
   function broadcastState() {
     if (!channel) return;
     var slide = slides[cur];
-    var groups = groupsOf(slide);
     var next;
-    if (mode === 'live' && stepIdx < groups.length) {
-      next = 'Next: build ' + (stepIdx + 1) + ' of ' + groups.length + ' on this slide';
-    } else if (cur < total - 1) {
+    if (cur < total - 1) {
       next = 'Next slide: ' + (slides[cur + 1].getAttribute('data-title') || '');
     } else {
       next = 'End of deck';
@@ -307,24 +253,9 @@
   }
   function openPresenter() {
     presenterWin = window.open('presenter.html', 'ihs-mspv-presenter', 'width=1000,height=680');
-    if (presenterWin) { setMode('live'); later(broadcastState, 600); }
+    if (presenterWin) later(broadcastState, 600);
   }
   document.getElementById('btnPresenter').addEventListener('click', openPresenter);
-
-  /* ---------- mode ---------- */
-
-  var modeBtn = document.getElementById('btnMode');
-  function setMode(m) {
-    mode = m;
-    try { localStorage.setItem(MODE_KEY, m); } catch (e) { /* fine */ }
-    modeBtn.textContent = (m === 'live') ? 'Mode: live' : 'Mode: self-guided';
-    modeBtn.setAttribute('aria-pressed', String(m === 'live'));
-    announce((m === 'live')
-      ? 'Live mode. Advancing steps through each build before changing slides.'
-      : 'Self-guided mode. Builds play automatically on each slide.');
-  }
-  modeBtn.addEventListener('click', function () { setMode(mode === 'live' ? 'self' : 'live'); });
-  setMode(mode);
 
   /* ---------- generic modal handling ---------- */
 
@@ -488,7 +419,6 @@
       resetSteps(slide);
       var steps = stepsOf(slide);
       steps.forEach(function (el, i) { later(function () { el.classList.add('on'); }, 150 + i * 240); });
-      stepIdx = groupsOf(slide).length;
       later(function () { playOrgPulse(slide); }, 150 + steps.length * 240);
     });
   }
