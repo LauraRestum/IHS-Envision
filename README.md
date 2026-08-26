@@ -42,7 +42,7 @@ pip install qrcode
 python3 tools/generate_qr.py
 ```
 
-## Open placeholders (tracked in docs/presenter-notes.md and this table)
+## Open placeholders
 
 | Item | Lives on | Status |
 |---|---|---|
@@ -63,8 +63,7 @@ css/deck.css             Design system, motion, print stylesheet
 js/deck.js               Deck engine
 data/items.js            Item explorer data (generated; currently pending)
 assets/                  Self-hosted Montserrat woff2, Envision logo (white), headshot, favicons, OG image, QR
-docs/presenter-notes.md  Internal talk track and flags. Never deployed (.vercelignore) and never sent to attendees
 tools/                   QR generator, item spreadsheet converter, config
 ```
 
-The deck is attendee-facing: it contains no presenter notes, internal flags, or presenter tooling. Dedra's talk track lives only in `docs/presenter-notes.md`.
+The deck is attendee-facing: it contains no presenter notes, internal flags, or presenter tooling. Dedra's talk track is kept outside this repository.
