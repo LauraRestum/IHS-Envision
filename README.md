@@ -2,7 +2,7 @@
 
 An interactive, single-page HTML webinar presentation for Indian Health Service procurement professionals, presented by Dedra Griffin (Envision). 13 slides, 16:9 stage, in the same family as the Envision capabilities decks.
 
-**Status: pre-review draft.** Judy at IHS reviews before anything goes live, and nothing ships publicly until Laura clears it. The deck carries `noindex` (meta tag plus an `X-Robots-Tag` header via `vercel.json`) until that clearance.
+**Status: pre-review draft.** The shipped page is attendee-clean (no presenter notes or internal flags in the HTML). Judy at IHS reviews before anything goes live, and nothing ships publicly until Laura clears it. It carries `noindex` (meta tag plus an `X-Robots-Tag` header via `vercel.json`) until that clearance.
 
 ## Running it
 
@@ -17,8 +17,6 @@ Import this repo in Vercel as a static project (no framework preset, no build co
 | Action | How |
 |---|---|
 | Advance / back | Right and Left arrows, Space, PageDown/PageUp, the Prev/Next buttons, edge tap zones, or swipe. One press per slide; builds play automatically on slide entry |
-| Presenter notes | N toggles the notes drawer. All FILL and CONFIRM flags live there, visible in presenter view only |
-| Presenter window | P opens a synced window (notes, elapsed time, next-step preview) via BroadcastChannel |
 | Overview | O opens a jump-to-any-slide grid |
 | Deep links | Every slide is addressable as `#slide-4` etc., for the follow-up email |
 | Motion | Display button has a persisted Reduce motion toggle; the OS `prefers-reduced-motion` setting is always honored |
@@ -44,7 +42,7 @@ pip install qrcode
 python3 tools/generate_qr.py
 ```
 
-## Open placeholders (also flagged in presenter notes)
+## Open placeholders (tracked in docs/presenter-notes.md and this table)
 
 | Item | Lives on | Status |
 |---|---|---|
@@ -60,12 +58,13 @@ python3 tools/generate_qr.py
 ## Structure
 
 ```
-index.html        The deck (13 slides, modals, glossary, presenter notes in-page)
-presenter.html    Synced presenter window (opened with P)
-css/deck.css      Design system, motion, print stylesheet
-js/deck.js        Deck engine
-js/presenter.js   Presenter window logic
-data/items.js     Item explorer data (generated; currently pending)
-assets/           Self-hosted Montserrat woff2, Envision logo (white), favicons, OG image, QR
-tools/            QR generator, item spreadsheet converter, config
+index.html               The deck (13 slides, modals, glossary)
+css/deck.css             Design system, motion, print stylesheet
+js/deck.js               Deck engine
+data/items.js            Item explorer data (generated; currently pending)
+assets/                  Self-hosted Montserrat woff2, Envision logo (white), headshot, favicons, OG image, QR
+docs/presenter-notes.md  Internal talk track and flags. Never deployed (.vercelignore) and never sent to attendees
+tools/                   QR generator, item spreadsheet converter, config
 ```
+
+The deck is attendee-facing: it contains no presenter notes, internal flags, or presenter tooling. Dedra's talk track lives only in `docs/presenter-notes.md`.

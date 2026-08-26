@@ -634,22 +634,6 @@ button.ccard:hover { border-color: var(--green); }
 .nav-zone--next { right: 0; }
 .nav-zone:focus-visible { outline-offset: -4px; }
 
-/* ---------- Notes drawer ---------- */
-
-.notes-drawer {
-  position: fixed; left: 0; right: 0; bottom: 64px; z-index: 120;
-  max-height: 42vh; overflow-y: auto;
-  background: rgba(0, 13, 46, 0.97); border-top: 2px solid var(--green);
-  padding: 20px 28px 24px;
-}
-.notes-drawer[hidden] { display: none; }
-.notes-drawer h2 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.8rem; }
-.notes-drawer .notes-text { font-size: 0.9rem; line-height: 1.75; font-weight: 500; max-width: 980px; white-space: pre-line; }
-.notes-flag {
-  display: inline-block; background: rgba(255, 207, 0, 0.16); border: 1px solid rgba(255, 207, 0, 0.5);
-  border-radius: 2px; color: var(--gold); font-weight: 700; padding: 0 6px;
-}
-
 /* ---------- Overview ---------- */
 
 .overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
@@ -717,7 +701,7 @@ html[data-motion="reduce"] .fade-step { opacity: 1; }
 
 /* ============================================================
    Print stylesheet: the leave-behind. One slide per page,
-   dark surfaces preserved, presenter notes and chrome excluded.
+   dark surfaces preserved, deck chrome excluded.
    ============================================================ */
 
 @media print {
@@ -737,7 +721,7 @@ html[data-motion="reduce"] .fade-step { opacity: 1; }
   .org-pulse, .flow-token { display: none !important; }
   .org-conn, .flow-track { background: var(--border-green) !important; }
   .liner-why { display: none; }
-  .chrome, .progress, .nav-zone, .notes-drawer, .modal-overlay, .popover,
+  .chrome, .progress, .nav-zone, .modal-overlay, .popover,
   .skip-link, .toast, .org-replay, .flow .btn-ghost-sm { display: none !important; }
   .next-steps li .tick { color: transparent; }
   .ccard-hint, .tile-hint { display: none; }

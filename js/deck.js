@@ -1,11 +1,10 @@
-/* Deck engine: navigation, builds, presenter sync, modals, popovers,
+/* Deck engine: navigation, builds, modals, popovers,
    item explorer, liner picker, org chart and flow moments.
    Keyboard-first, screen-share safe, reduced-motion aware. */
 (function () {
   'use strict';
 
   var STORE_KEY = 'env-a11y';
-  var CHANNEL = 'ihs-mspv-deck';
 
   var root = document.documentElement;
   var stage = document.getElementById('stage');
@@ -14,8 +13,6 @@
   var total = slides.length;
   var cur = 0;
   var timeouts = [];
-  var channel = ('BroadcastChannel' in window) ? new BroadcastChannel(CHANNEL) : null;
-  var presenterWin = null;
 
   /* ---------- preferences ---------- */
 
@@ -183,8 +180,6 @@
       try { history.replaceState(null, '', '#slide-' + (cur + 1)); } catch (e) { /* file:// */ }
     }
     announce('Slide ' + (cur + 1) + ' of ' + total + ': ' + (slide.getAttribute('data-title') || ''));
-    updateNotes();
-    broadcastState();
   }
 
   function advance() {
@@ -194,68 +189,6 @@
   function back() {
     if (cur > 0) goTo(cur - 1, { revealAll: true });
   }
-
-  /* ---------- notes drawer ---------- */
-
-  var notesDrawer = document.getElementById('notesDrawer');
-  var notesBtn = document.getElementById('btnNotes');
-  function notesOpen() { return !notesDrawer.hidden; }
-  function updateNotes() {
-    if (!notesDrawer) return;
-    var src = slides[cur].querySelector('.presenter-notes');
-    document.getElementById('notesBody').innerHTML = src ? src.innerHTML : '<p>No notes for this slide.</p>';
-    document.getElementById('notesSlideLabel').textContent =
-      'Presenter notes, slide ' + (cur + 1) + ': ' + (slides[cur].getAttribute('data-title') || '');
-  }
-  function toggleNotes(force) {
-    var show = (typeof force === 'boolean') ? force : notesDrawer.hidden;
-    notesDrawer.hidden = !show;
-    notesBtn.setAttribute('aria-pressed', String(show));
-    notesBtn.setAttribute('aria-expanded', String(show));
-    if (show) updateNotes();
-  }
-  notesBtn.addEventListener('click', function () { toggleNotes(); });
-  document.getElementById('notesClose').addEventListener('click', function () { toggleNotes(false); notesBtn.focus(); });
-
-  /* ---------- presenter window ---------- */
-
-  function notesTextOf(slide) {
-    var src = slide.querySelector('.presenter-notes');
-    return src ? src.innerHTML : '';
-  }
-  function broadcastState() {
-    if (!channel) return;
-    var slide = slides[cur];
-    var next;
-    if (cur < total - 1) {
-      next = 'Next slide: ' + (slides[cur + 1].getAttribute('data-title') || '');
-    } else {
-      next = 'End of deck';
-    }
-    channel.postMessage({
-      type: 'state',
-      slide: cur + 1,
-      total: total,
-      title: slide.getAttribute('data-title') || '',
-      notes: notesTextOf(slide),
-      next: next
-    });
-  }
-  if (channel) {
-    channel.addEventListener('message', function (e) {
-      var m = e.data || {};
-      if (m.type === 'cmd') {
-        if (m.cmd === 'next') advance();
-        if (m.cmd === 'prev') back();
-        if (m.cmd === 'hello') broadcastState();
-      }
-    });
-  }
-  function openPresenter() {
-    presenterWin = window.open('presenter.html', 'ihs-mspv-presenter', 'width=1000,height=680');
-    if (presenterWin) later(broadcastState, 600);
-  }
-  document.getElementById('btnPresenter').addEventListener('click', openPresenter);
 
   /* ---------- generic modal handling ---------- */
 
@@ -592,10 +525,7 @@
       case 'ArrowLeft': case 'PageUp': e.preventDefault(); back(); break;
       case 'Home': e.preventDefault(); goTo(0); break;
       case 'End': e.preventDefault(); goTo(total - 1, { revealAll: true }); break;
-      case 'n': case 'N': if (e.shiftKey) return; e.preventDefault(); toggleNotes(); break;
       case 'o': case 'O': if (e.shiftKey) return; e.preventDefault(); openOverview(document.getElementById('btnOverview')); break;
-      case 'p': case 'P': if (e.shiftKey) return; e.preventDefault(); openPresenter(); break;
-      case 'Escape': if (notesOpen()) toggleNotes(false); break;
     }
   });
 
