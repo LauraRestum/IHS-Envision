@@ -169,7 +169,10 @@ h3 { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
 }
 .title-inner { position: relative; z-index: 1; max-width: 940px; }
 .title-inner .eyebrow { display: flex; }
-.title-logo { height: 52px; width: auto; margin-bottom: 40px; }
+.title-logos { display: flex; align-items: center; gap: 26px; margin-bottom: 40px; }
+.title-logo { height: 52px; width: auto; }
+.logo-sep { width: 1px; height: 48px; background: var(--border-soft); }
+.title-seal { height: 78px; width: auto; }
 .slide--title h1 { margin: 0.6rem 0 1.4rem; }
 .title-sub { font-size: 1.16rem; line-height: 1.65; color: var(--text-muted); max-width: 700px; margin-bottom: 2.4rem; }
 .title-byline {
@@ -304,10 +307,17 @@ html[data-motion="reduce"] .org .org-conn,
   background: var(--surface-card); border: 1px solid var(--border-soft); border-radius: 2px;
   padding: 34px 36px; border-left: 2px solid var(--green);
 }
+.mission-panel .panel-head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  margin-bottom: 1.1rem; min-height: 54px;
+}
 .mission-panel .panel-label {
   font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--green); margin-bottom: 1.1rem; display: block;
+  color: var(--green); display: block; padding-top: 4px;
 }
+.panel-mark { flex: 0 0 auto; }
+.panel-mark--seal { height: 54px; width: auto; }
+.panel-mark--word { height: 22px; width: auto; margin-top: 4px; }
 .mission-panel blockquote { font-size: 1.02rem; font-weight: 500; line-height: 1.7; }
 .mission-close { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
 .fade-step { opacity: 0; }

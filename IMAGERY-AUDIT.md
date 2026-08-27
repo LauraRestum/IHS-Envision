@@ -50,11 +50,11 @@ cp ../envision-capabilites-services/images/<file> assets/img/<descriptive-name>.
 
 | Slide | Verdict | Notes and candidates |
 |---|---|---|
-| 1 Title | No image | The ambient gradient treatment is the design. A photo would compete with the display title. |
+| 1 Title | **Wired** | Co-brand lockup: the Envision wordmark and the IHS seal (both white, `assets/img/ihs-seal-white.png`, supplied by Laura) separated by a hairline rule. No photo; it would compete with the display title. |
 | 2 Built for federal scale | Open slot, needs a copy trim first | The natural proof photo lives here, but the slide is full (4 stats + 5 bullets). If a bullet is cut, add a two-up campus strip: `images/campus-card-wichita.jpg` + `images/campus-card-dallas.jpg`, or a single `.photo-card` with `images/envision-dallas-warehouse-aisle.jpg`. |
 | 3 AbilityOne Program | No image | Stat slide; the numbers are the visual. |
 | 4 How AbilityOne works | No image | The org chart is the visual. |
-| 5 Your mission and ours | Optional | A single people-centric `.photo-card` under the panels could work if desired: `images/envision-employee-with-guide-dog-factory.jpg` or `images/employee-factory-wichita.jpg`. Not required; the paired quotes carry the slide. |
+| 5 Your mission and ours | **Wired** | Each mission panel carries its organization's mark in the header row: the IHS seal on the IHS panel, the Envision wordmark on the Envision panel. The marks have empty alt because each panel's visible label already names the organization. A people-centric `.photo-card` under the panels remains optional: `images/envision-employee-with-guide-dog-factory.jpg` or `images/employee-factory-wichita.jpg`. |
 | 6 The MSPV program | No image | The order-flow diagram is the visual. |
 | 7 Contract at a glance | No image | Card grid is full. |
 | 8 Know your liners | **Wired** + two ready | HDPE and LLDPE product tiles are in. Ready when wanted: `images/products/medical-isolation-bags.jpg` (the color-coded isolation liners named in the closing line) and `images/products/can-liner-compostable.jpg`, both white-ground shots that drop straight onto a `.product-tile`. |
