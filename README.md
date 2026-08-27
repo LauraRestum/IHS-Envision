@@ -33,14 +33,9 @@ python3 tools/convert_items.py path/to/MSPV_Items_7_27_26.xlsx
 
 Then spot-check the result against the spreadsheet (row count, one sampled row, PVON statuses) and commit `data/items.js`.
 
-## QR code
+## Imagery
 
-Generated at build time from a single config value. To re-point it (for example to a deeper catalog URL), edit `qrTargetUrl` in `tools/config.json` and run:
-
-```
-pip install qrcode
-python3 tools/generate_qr.py
-```
+The deck carries no QR codes: envisionus.com is written out wherever the catalog is referenced. Photography is pulled from the `envision-capabilites-services` repo (the capabilities deck's image library) into `assets/img/`. White-background product shots render on the `.product-tile` white tile, which is what lets clear and white product photography read on the dark surfaces; environmental photos use the `.photo-card` framed card. `IMAGERY-AUDIT.md` maps every slide's imagery slots, what is wired in, and which capabilities-repo files fit the remaining slots.
 
 ## Open placeholders
 
@@ -51,7 +46,6 @@ python3 tools/generate_qr.py
 | Second Prime Vendor: Concordance (CHS) vs Cardinal | Slide 12 notes | Confirm against the item data (data says CHS) |
 | Contract end date: Oct 14, 2028 vs Jul 14, 2028 | Slide 7 | Confirm; deck currently uses Oct 14, 2028 per item data |
 | Dakota Western description and any ownership language | Slide 10 | Verify with Dakota Western before presenting |
-| QR landing page | Slides 12, 13 | envisionus.com; give a deeper catalog URL if preferred |
 | HDPE and LLDPE property characterizations | Slide 8 | Verify against Envision spec sheets |
 | MSPV item spreadsheet conversion | Item explorer | Run tools/convert_items.py when the file is supplied |
 
@@ -62,8 +56,9 @@ index.html               The deck (13 slides, modals, glossary)
 css/deck.css             Design system, motion, print stylesheet
 js/deck.js               Deck engine
 data/items.js            Item explorer data (generated; currently pending)
-assets/                  Self-hosted Montserrat woff2, Envision logo (white), headshot, favicons, OG image, QR
-tools/                   QR generator, item spreadsheet converter, config
+assets/                  Self-hosted Montserrat woff2, Envision logo (white), headshot, favicons, OG image, photography
+tools/                   Item spreadsheet converter, config
+IMAGERY-AUDIT.md         Slide-by-slide imagery audit and capabilities-repo image map
 ```
 
 The deck is attendee-facing: it contains no presenter notes, internal flags, or presenter tooling. Dedra's talk track is kept outside this repository.
