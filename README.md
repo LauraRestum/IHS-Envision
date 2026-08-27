@@ -4,6 +4,13 @@ An interactive, single-page HTML webinar presentation for Indian Health Service 
 
 **Status: pre-review draft.** The shipped page is attendee-clean (no presenter notes or internal flags in the HTML). Judy at IHS reviews before anything goes live, and nothing ships publicly until Laura clears it. It carries `noindex` (meta tag plus an `X-Robots-Tag` header via `vercel.json`) until that clearance.
 
+## Shipping a change
+
+`index.html` references its stylesheet and scripts with a version query
+(`css/deck.css?v=2` etc.). Bump the number in all three references whenever
+`deck.css`, `deck.js`, or `items.js` changes, so returning browsers cannot pair
+a cached old stylesheet with new markup.
+
 ## Running it
 
 Static site, no build step required to view. Open `index.html` in a browser, or serve the folder (`python3 -m http.server`) and open `http://localhost:8000`.
