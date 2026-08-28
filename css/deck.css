@@ -169,7 +169,10 @@ h3 { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
 }
 .title-inner { position: relative; z-index: 1; max-width: 940px; }
 .title-inner .eyebrow { display: flex; }
-.title-logo { height: 52px; width: auto; margin-bottom: 40px; }
+.title-logos { display: flex; align-items: center; gap: 26px; margin-bottom: 40px; }
+.title-logo { height: 52px; width: auto; }
+.title-logo--ihs { height: 64px; }
+.title-logo-divider { width: 1px; height: 48px; background: var(--border-soft); flex: 0 0 auto; }
 .slide--title h1 { margin: 0.6rem 0 1.4rem; }
 .title-sub { font-size: 1.16rem; line-height: 1.65; color: var(--text-muted); max-width: 700px; margin-bottom: 2.4rem; }
 .title-byline {
@@ -712,7 +715,7 @@ html[data-motion="reduce"] .fade-step { opacity: 1; }
   html, body { overflow: visible; height: auto; background: var(--bg-body); }
   body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   #viewport { position: static; display: block; }
-  #stage { width: auto; height: auto; transform: none !important; }
+  #stage { width: auto; height: auto; transform: none !important; zoom: normal !important; }
   .slide {
     position: relative; inset: auto;
     opacity: 1 !important; visibility: visible !important;
