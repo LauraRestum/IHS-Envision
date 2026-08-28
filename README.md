@@ -56,7 +56,7 @@ index.html               The deck (13 slides, modals, glossary)
 css/deck.css             Design system, motion, print stylesheet
 js/deck.js               Deck engine
 data/items.js            Item explorer data (generated; currently pending)
-assets/                  Self-hosted Montserrat woff2, Envision logo (white), headshot, favicons, OG image, photography
+assets/                  Self-hosted Montserrat woff2, Envision and IHS logos (white), headshot, favicons, OG image, photography
 tools/                   Item spreadsheet converter, config
 IMAGERY-AUDIT.md         Slide-by-slide imagery audit and capabilities-repo image map
 ```

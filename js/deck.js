@@ -35,12 +35,19 @@
 
   /* ---------- stage scaling ---------- */
 
+  /* CSS zoom re-renders text and images at the final size; transform: scale()
+     stretches a 1280x720 raster, which is what made the deck look soft. */
+  var useZoom = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('zoom', '1');
   function fit() {
     var chromeH = document.querySelector('.chrome').offsetHeight || 64;
     var w = window.innerWidth;
     var h = window.innerHeight - chromeH;
     var scale = Math.min(w / 1280, h / 720);
-    stage.style.transform = 'scale(' + scale + ')';
+    if (useZoom) {
+      stage.style.zoom = scale;
+    } else {
+      stage.style.transform = 'scale(' + scale + ')';
+    }
     stage.dataset.scale = String(scale);
   }
   window.addEventListener('resize', fit);
