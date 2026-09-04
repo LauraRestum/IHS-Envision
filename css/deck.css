@@ -558,7 +558,7 @@ button.ccard:hover { border-color: var(--green-text); }
   .explorer-table, .explorer-table tbody, .explorer-table tr, .explorer-table td { display: block; }
   .explorer-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .explorer-table tr { border-top: 1px solid var(--border-soft); padding: 10px 0; }
-  .explorer-table td { border-top: 0; padding: 4px 12px; }
+  .explorer-table td { border-top: 0; padding: 4px 12px; overflow-wrap: anywhere; }
   .explorer-table td::before {
     content: attr(data-label); display: block; font-weight: 700;
     letter-spacing: 0.04em; text-transform: uppercase; color: var(--green-text);
