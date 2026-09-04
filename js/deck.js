@@ -258,9 +258,33 @@
   }
   document.getElementById('btnOverview').addEventListener('click', function (e) { openOverview(e.currentTarget); });
 
-  /* ---------- display options (motion toggle) ---------- */
+  /* ---------- display options (theme and motion) ---------- */
 
   document.getElementById('btnDisplay').addEventListener('click', function (e) { openModal('displayModal', e.currentTarget); });
+
+  var THEME_LABELS = { dark: 'Dark', light: 'Light', hc: 'High contrast' };
+  function currentTheme() {
+    return root.getAttribute('data-theme') || 'dark';
+  }
+  function refreshThemeButtons() {
+    var t = currentTheme();
+    document.getElementById('themeDark').setAttribute('aria-pressed', String(t === 'dark'));
+    document.getElementById('themeLight').setAttribute('aria-pressed', String(t === 'light'));
+    document.getElementById('themeHc').setAttribute('aria-pressed', String(t === 'hc'));
+  }
+  function setTheme(t) {
+    var p = prefs();
+    p.theme = t; /* an explicit pick, dark included, beats prefers-color-scheme */
+    savePrefs(p);
+    if (t === 'dark') root.removeAttribute('data-theme');
+    else root.setAttribute('data-theme', t);
+    refreshThemeButtons();
+    announce('Theme: ' + (THEME_LABELS[t] || t));
+  }
+  document.getElementById('themeDark').addEventListener('click', function () { setTheme('dark'); });
+  document.getElementById('themeLight').addEventListener('click', function () { setTheme('light'); });
+  document.getElementById('themeHc').addEventListener('click', function () { setTheme('hc'); });
+  refreshThemeButtons();
   function refreshMotionButtons() {
     var reduced = root.getAttribute('data-motion') === 'reduce';
     document.getElementById('motionOn').setAttribute('aria-pressed', String(!reduced));

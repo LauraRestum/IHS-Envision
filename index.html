@@ -4,6 +4,11 @@
   <script>(function(){try{
     var p = JSON.parse(localStorage.getItem('env-a11y') || '{}');
     if (p.motion === 'reduce') document.documentElement.setAttribute('data-motion', 'reduce');
+    var t = p.theme;
+    if (t !== 'dark' && t !== 'light' && t !== 'hc') {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+    }
+    if (t !== 'dark') document.documentElement.setAttribute('data-theme', t);
   }catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -568,12 +573,18 @@
         <button type="button" class="modal-close" data-modal-close aria-label="Close display options">&times;</button>
       </div>
       <div class="modal-body">
+        <div class="display-group" role="group" aria-labelledby="themeLabel">
+          <span class="display-label" id="themeLabel">Theme</span>
+          <button type="button" id="themeDark" aria-pressed="true">Dark</button>
+          <button type="button" id="themeLight" aria-pressed="false">Light</button>
+          <button type="button" id="themeHc" aria-pressed="false">High contrast</button>
+        </div>
         <div class="display-group" role="group" aria-labelledby="motionLabel">
           <span class="display-label" id="motionLabel">Motion</span>
           <button type="button" id="motionOn" aria-pressed="true">Motion on</button>
           <button type="button" id="motionOff" aria-pressed="false">Reduce motion</button>
         </div>
-        <p class="display-note">Reduce motion renders every build complete and turns traveling effects into static highlights. Your choice is saved on this device, and your system-level reduced-motion setting is always honored.</p>
+        <p class="display-note">Pick the theme that suits your eyes and your room; every theme keeps the same content and typeface. Reduce motion renders every build complete and turns traveling effects into static highlights. Your choices are saved on this device. Your system-level reduced-motion setting is always honored, and your system color scheme is used until you pick a theme here.</p>
       </div>
     </div>
   </div>
