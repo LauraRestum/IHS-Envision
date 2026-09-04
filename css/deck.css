@@ -652,6 +652,8 @@ button.ccard:hover { border-color: var(--green-text); }
   letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.7rem;
 }
 .quote-actions { margin-top: 12px; }
+.lead-line { font-size: 1.16rem; font-weight: 600; line-height: 1.6; max-width: 860px; margin-bottom: 20px; }
+.callout-line { font-size: 1.08rem; font-weight: 600; line-height: 1.6; }
 .citation-body h3 { color: var(--green-text); font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
 .citation-body p + h3 { margin-top: 1.4rem; }
 

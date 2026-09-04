@@ -152,8 +152,8 @@
   function slideMoments(slide) {
     runCountups(slide);
     if (slide.id === 'slide-4') later(function () { playOrgPulse(slide); }, motionReduced() ? 0 : 350);
-    if (slide.id === 'slide-6') later(function () { playFlow(slide); }, motionReduced() ? 0 : 300);
-    if (slide.id === 'slide-13') playTicks(slide);
+    if (slide.id === 'slide-7') later(function () { playFlow(slide); }, motionReduced() ? 0 : 300);
+    if (slide.id === 'slide-14') playTicks(slide);
   }
 
   /* ---------- navigation ---------- */
@@ -389,7 +389,7 @@
   }
   var flowReplay = document.getElementById('flowReplay');
   if (flowReplay) {
-    flowReplay.addEventListener('click', function () { playFlow(document.getElementById('slide-6')); });
+    flowReplay.addEventListener('click', function () { playFlow(document.getElementById('slide-7')); });
   }
 
   /* ---------- copy contract number ---------- */
@@ -681,7 +681,7 @@
   var _slideMoments = slideMoments;
   slideMoments = function (slide) {
     _slideMoments(slide);
-    if (slide.id === 'slide-12') playOrderSteps(slide);
+    if (slide.id === 'slide-13') playOrderSteps(slide);
   };
 
   /* ---------- boot from hash ---------- */
