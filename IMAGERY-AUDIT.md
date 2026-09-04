@@ -42,8 +42,8 @@ cp ../envision-capabilites-services/images/<file> assets/img/<descriptive-name>.
 
 | Slide | Image | Source in capabilities repo | Treatment |
 |---|---|---|---|
-| 8, Know your liners | `assets/img/can-liner-hdpe.jpg` on the HDPE panel | `images/products/can-liner-hdpe.jpg` | `.product-tile` (white) |
-| 8, Know your liners | `assets/img/can-liner-lldpe.jpg` on the LLDPE panel | `images/products/can-liner-lldpe.jpg` | `.product-tile` (white) |
+| 8, Know your liners | `assets/img/can-liner-hdpe.jpg` on the HDPE panel | `images/products/can-liner-lldpe.jpg` (the capabilities repo's filenames were flipped; Dedra's review confirmed the swap. The crisp-creased thin-film shot now sits under HDPE) | `.product-tile` (white) |
+| 8, Know your liners | `assets/img/can-liner-lldpe.jpg` on the LLDPE panel | `images/products/can-liner-hdpe.jpg` (the taut, stretched-film shot now sits under LLDPE) | `.product-tile` (white) |
 | 12, How to order | `assets/img/wichita-manufacturing-floor.jpg` in the side column (replaces the QR card) | `images/envision-manufacturing-floor-bag-machines.jpg` | `.photo-card` |
 
 ## Slide-by-slide
