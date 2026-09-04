@@ -333,7 +333,7 @@
       var sr = slide.getBoundingClientRect();
       var left = (br.left - sr.left) / scale;
       var top = (br.bottom - sr.top) / scale + 10;
-      if (left + 390 > 1280 - 72) left = 1280 - 72 - 390;
+      if (left + 430 > 1280 - 64) left = 1280 - 64 - 430;
       pop.style.left = left + 'px';
       pop.style.top = top + 'px';
       btn.setAttribute('aria-expanded', 'true');
