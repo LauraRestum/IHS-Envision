@@ -42,9 +42,9 @@ cp ../envision-capabilites-services/images/<file> assets/img/<descriptive-name>.
 
 | Slide | Image | Source in capabilities repo | Treatment |
 |---|---|---|---|
-| 8, Know your liners | `assets/img/can-liner-hdpe.jpg` on the HDPE panel | `images/products/can-liner-hdpe.jpg` | `.product-tile` (white) |
-| 8, Know your liners | `assets/img/can-liner-lldpe.jpg` on the LLDPE panel | `images/products/can-liner-lldpe.jpg` | `.product-tile` (white) |
-| 12, How to order | `assets/img/wichita-manufacturing-floor.jpg` in the side column (replaces the QR card) | `images/envision-manufacturing-floor-bag-machines.jpg` | `.photo-card` |
+| 9, Know your liners | `assets/img/can-liner-hdpe.jpg` on the HDPE panel | `images/products/can-liner-lldpe.jpg` (the capabilities repo's filenames were flipped; Dedra's review confirmed the swap. The crisp-creased thin-film shot now sits under HDPE) | `.product-tile` (white) |
+| 9, Know your liners | `assets/img/can-liner-lldpe.jpg` on the LLDPE panel | `images/products/can-liner-hdpe.jpg` (the taut, stretched-film shot now sits under LLDPE) | `.product-tile` (white) |
+| 13, How to order | `assets/img/wichita-manufacturing-floor.jpg` in the side column (replaces the QR card) | `images/envision-manufacturing-floor-bag-machines.jpg` | `.photo-card` |
 
 ## Slide-by-slide
 
@@ -55,18 +55,19 @@ cp ../envision-capabilites-services/images/<file> assets/img/<descriptive-name>.
 | 3 AbilityOne Program | No image | Stat slide; the numbers are the visual. |
 | 4 How AbilityOne works | No image | The org chart is the visual. |
 | 5 Your mission and ours | Optional | A single people-centric `.photo-card` under the panels could work if desired: `images/envision-employee-with-guide-dog-factory.jpg` or `images/employee-factory-wichita.jpg`. Not required; the paired quotes carry the slide. |
-| 6 The MSPV program | No image | The order-flow diagram is the visual. |
-| 7 Contract at a glance | No image | Card grid is full. |
-| 8 Know your liners | **Wired** + two ready | HDPE and LLDPE product tiles are in. Ready when wanted: `images/products/medical-isolation-bags.jpg` (the color-coded isolation liners named in the closing line) and `images/products/can-liner-compostable.jpg`, both white-ground shots that drop straight onto a `.product-tile`. |
-| 9 Why order through MSPV | Optional | The "Employment with every order" row could carry a small portrait tile (`images/envision-workforce-team-member-headset.jpg`), but the five-row rhythm is tight; only add if a row is shortened. |
-| 10 Buy Indian Act | No image | Legal content; the quote card is the focus. |
-| 11 Training and support | No image | Interactive tile grid is full. |
-| 12 How to order | **Wired** | Manufacturing-floor photo card fills the space the QR card held, above the Prime Vendor contacts. |
-| 13 Closing | Complete | Dedra's headshot carries the card; the QR tile is removed and the card rebalances without it. |
+| 6 Everything Envision supplies | No image | Print carve-out and contact card; text carries the slide. |
+| 7 The MSPV program | No image | The order-flow diagram is the visual. |
+| 8 Contract at a glance | No image | Card grid is full. |
+| 9 Know your liners | **Wired** + two ready | HDPE and LLDPE product tiles are in. Ready when wanted: `images/products/medical-isolation-bags.jpg` (the color-coded isolation liners named in the closing line) and `images/products/can-liner-compostable.jpg`, both white-ground shots that drop straight onto a `.product-tile`. |
+| 10 Why order through MSPV | Optional | The "Employment with every order" row could carry a small portrait tile (`images/envision-workforce-team-member-headset.jpg`), but the five-row rhythm is tight; only add if a row is shortened. |
+| 11 Buy Indian Act | No image | Legal content; the quote card is the focus. |
+| 12 Training and support | No image | Interactive tile grid is full. |
+| 13 How to order | **Wired** | Manufacturing-floor photo card fills the space the QR card held, above the Prime Vendor contacts. |
+| 14 Closing | Complete | Dedra's headshot carries the card; the QR tile is removed and the card rebalances without it. |
 
 ## Accessibility check on the additions
 
-- Every wired image has descriptive alt text; the slide-12 caption is a
+- Every wired image has descriptive alt text; the slide-13 caption is a
   visible `figcaption`, so the alt describes the scene rather than repeating it.
 - The white product tiles are content grounds inside cards, not page
   backgrounds; the dark system and its verified contrast pairs are unchanged.

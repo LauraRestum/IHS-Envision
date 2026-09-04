@@ -2,22 +2,21 @@
 """Convert the MSPV item spreadsheet to data/items.js for the item explorer.
 
 Usage:
-  python3 tools/convert_items.py [path/to/MSPV_Items_7_27_26.xlsx]
+  python3 tools/convert_items.py [path/to/spreadsheet.xlsx]
 
-If no path is given, the script looks for the filename named in
-tools/config.json ("itemSpreadsheet") in the repo root.
+If no path is given, the script uses the file named in tools/config.json
+("itemSpreadsheet"), resolved from the repo root.
 
-Expected columns (matched loosely, case-insensitive, by keyword):
-  item number, description, category, latex-free flag,
-  Medline PVON and status, CHS PVON and status,
-  contract number, CLIN, effective date, completion date
+Headers are matched EXACTLY against EXPECTED_HEADER below. A renamed,
+added, or reordered column fails the run loudly instead of silently
+producing null fields. Cell values are carried through verbatim: no
+retyping, no cleanup, no guessing.
 
 Requires: pip install openpyxl
 """
 import datetime
 import json
 import pathlib
-import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -26,12 +25,36 @@ config = json.loads((ROOT / "tools" / "config.json").read_text())
 src = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / config["itemSpreadsheet"]
 if not src.exists():
     sys.exit(f"Spreadsheet not found: {src}\n"
-             "Place the MSPV item spreadsheet in the repo root or pass its path.")
+             "Pass its path, or update itemSpreadsheet in tools/config.json.")
 
 try:
     import openpyxl
 except ImportError:
     sys.exit("Missing dependency. Run: pip install openpyxl")
+
+# Column name -> output field. Exact match, in any order, so a future
+# rename in the source sheet fails loudly here rather than shipping nulls.
+EXPECTED_HEADER = {
+    "Manufacturer_Part_Number": "itemNumber",
+    "NSN": "nsn",
+    "MedPDB_Description": "description",
+    "UOP": "uop",
+    "Quantity_per_UOP": "qtyPerUop",
+    "Latex_Free": "latexFree",
+    "Sterile": "sterile",
+    "IPT_Product_Category": "category",
+    "Medline_PVON": "medlinePvon",
+    "Medline_PVON_Status": "medlineStatus",
+    "CHS_PVON": "chsPvon",
+    "CHS_PVON_Status": "chsStatus",
+    "Dropship_Only": "dropshipOnly",
+    "Contract_Num": "contractNumber",
+    "CLIN": "clin",
+    "Effective_Date": "effectiveDate",
+    "Ultimate_Completion_Date": "completionDate",
+    "Country_of_Origin": "countryOfOrigin",
+    "Minimum_Order_Quantity_MOQ": "moq",
+}
 
 wb = openpyxl.load_workbook(src, data_only=True)
 ws = wb.active
@@ -39,73 +62,74 @@ rows = list(ws.iter_rows(values_only=True))
 if not rows:
     sys.exit("Spreadsheet is empty.")
 
-header = [str(c).strip().lower() if c is not None else "" for c in rows[0]]
+header = [str(c).strip() if c is not None else "" for c in rows[0]]
+missing = [name for name in EXPECTED_HEADER if name not in header]
+unexpected = [name for name in header if name and name not in EXPECTED_HEADER]
+if missing or unexpected:
+    sys.exit("Header mismatch. The converter matches column names exactly.\n"
+             f"  Missing expected columns: {missing or 'none'}\n"
+             f"  Unrecognized columns:     {unexpected or 'none'}\n"
+             f"  Header row seen: {header}")
+
+IDX = {field: header.index(name) for name, field in EXPECTED_HEADER.items()}
 
 
-def col(*keywords, exclude=()):
-    for i, name in enumerate(header):
-        if all(k in name for k in keywords) and not any(x in name for x in exclude):
-            return i
-    return None
-
-
-IDX = {
-    "itemNumber": col("item"),
-    "description": col("desc"),
-    "category": col("categ"),
-    "latexFree": col("latex"),
-    "medlinePvon": col("medline", "pvon", exclude=("status",)) or col("medline", "pvon"),
-    "medlineStatus": col("medline", "status"),
-    "chsPvon": col("chs", "pvon", exclude=("status",)) or col("chs", "pvon"),
-    "chsStatus": col("chs", "status"),
-    "contractNumber": col("contract"),
-    "clin": col("clin"),
-    "effectiveDate": col("effective"),
-    "completionDate": col("completion") or col("ultimate"),
-}
-
-missing = [k for k, v in IDX.items() if v is None]
-if missing:
-    print(f"WARNING: columns not matched, fields will be null: {missing}")
-    print(f"Header row seen: {header}")
-
-
-def cell(row, key):
-    i = IDX.get(key)
-    if i is None or i >= len(row):
+def cell(row, field):
+    i = IDX[field]
+    if i >= len(row):
         return None
     v = row[i]
     if isinstance(v, (datetime.date, datetime.datetime)):
         return v.strftime("%Y-%m-%d")
     if v is None:
         return None
-    return str(v).strip()
+    s = str(v).strip()
+    return s if s else None
 
 
 def derive_family(item):
+    """HDPE or LLDPE from the description, else the part-number prefix,
+    else None so the explorer shows "Not specified" rather than a guess."""
     text = f"{item.get('category') or ''} {item.get('description') or ''}".upper()
-    if "LLDPE" in text or "LINEAR" in text or "LOW DENSITY" in text or "LOW-DENSITY" in text:
-        return "LLDPE"
-    if "HDPE" in text or "HIGH DENSITY" in text or "HIGH-DENSITY" in text:
+    part = (item.get("itemNumber") or "").upper()
+    for kw in ("LLDPE", "LINEAR", "LOW DENSITY", "LOW-DENSITY", "LO DENSI", "LOW DENS"):
+        if kw in text:
+            return "LLDPE"
+    for kw in ("HDPE", "HIGH DENSITY", "HIGH-DENSITY", "HI DENSI"):
+        if kw in text:
+            return "HDPE"
+    if part.startswith(("HD", "H-")):
         return "HDPE"
+    if part.startswith(("LD", "L-")):
+        return "LLDPE"
     return None
 
 
-SIZE_RE = re.compile(r"(\d{1,3}(?:\.\d+)?\s*[xX]\s*\d{1,3}(?:\.\d+)?)")
-
-
-def derive_size(item):
-    m = SIZE_RE.search(item.get("description") or "")
-    return m.group(1).replace(" ", "").upper() if m else None
+def derive_product_type(item):
+    """The list is wider than can liners; classify by description keywords
+    and known part-number prefixes, with can liners as the remainder."""
+    text = (item.get("description") or "").upper()
+    part = (item.get("itemNumber") or "").upper()
+    if "BIOHAZARD" in text:
+        return "Biohazard"
+    if any(kw in text for kw in ("DEGRADABLE", "COMPOSTABLE", "BIODEGRADABLE")):
+        return "Compostable or degradable"
+    if part.startswith("IBF-"):
+        return "Insect repellent"
+    if part.startswith("SBC-"):
+        return "Shredder bags"
+    if part.startswith("ZF-"):
+        return "Zip bags"
+    return "Can liners"
 
 
 items = []
 for row in rows[1:]:
     if not any(c is not None and str(c).strip() for c in row):
         continue
-    item = {k: cell(row, k) for k in IDX}
+    item = {field: cell(row, field) for field in IDX}
     item["family"] = derive_family(item)
-    item["size"] = derive_size(item)
+    item["productType"] = derive_product_type(item)
     items.append(item)
 
 payload = {
@@ -113,6 +137,7 @@ payload = {
     "generatedFrom": src.name,
     "generatedAt": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     "contractNumber": config["contractNumber"],
+    "itemListAsOf": config["itemListAsOf"],
     "items": items,
 }
 
