@@ -236,12 +236,12 @@
               <div class="ccard step" data-step="1">
                 <svg class="ccard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
                 <span class="ccard-v">Through Oct 14, 2028</span>
-                <span class="ccard-l">Period of performance, which began October 15, 2023</span>
+                <span class="ccard-l">Period of performance, which began October 15, 2023. Each item's own dates are in the item explorer.</span>
               </div>
               <button type="button" class="ccard step" data-step="1" id="openExplorer" aria-haspopup="dialog">
                 <svg class="ccard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="19" cy="18" r="2.4"/></svg>
-                <span class="ccard-v">105 items</span>
-                <span class="ccard-l">On contract as of July 2026</span>
+                <span class="ccard-v" id="itemCountCard">The item list</span>
+                <span class="ccard-l" id="itemAsOfCard">Generated from the contract item listing</span>
                 <span class="ccard-hint">Open the item explorer</span>
               </button>
               <div class="ccard step" data-step="1">
@@ -249,17 +249,8 @@
                 <span class="ccard-v">A growing list</span>
                 <span class="ccard-l">Items added in 2023, 2024 and 2025, with more planned</span>
               </div>
-              <div class="ccard step" data-step="1">
-                <svg class="ccard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
-                <span class="ccard-v">100% latex-free</span>
-                <span class="ccard-l">Every item on the contract</span>
-              </div>
-              <div class="ccard step" data-step="1">
-                <svg class="ccard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 21V4M4 4h13l-2.5 3.5L17 11H4"/></svg>
-                <span class="ccard-v">Made in the U.S.</span>
-                <span class="ccard-l">Berry Amendment, TAA and Buy American compliant</span>
-              </div>
             </div>
+            <p class="card-note step" data-step="1">Wider than can liners: biohazard bags for health clinics are on contract, alongside compostable liners, shredder bags, zip bags and insect repellent.</p>
           </div>
         </section>
 
@@ -498,7 +489,7 @@
 
   <!-- ============ Item explorer modal ============ -->
   <div class="modal-overlay" id="explorerModal" hidden>
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="explorerTitle">
+    <div class="modal modal--wide" role="dialog" aria-modal="true" aria-labelledby="explorerTitle">
       <div class="modal-head">
         <h2 class="modal-title" id="explorerTitle">Contract 36C10X23G0011 item explorer</h2>
         <button type="button" class="modal-close" data-modal-close aria-label="Close the item explorer">&times;</button>
@@ -507,18 +498,19 @@
         <div class="explorer-pending" id="exPending" hidden>
           <p><strong>Item data pending.</strong> The contract item list is generated from the MSPV item spreadsheet and has not been loaded into this build yet. The full item list with PVONs goes out with the recording as the leave-behind.</p>
         </div>
+        <p class="explorer-summary" id="exSummary" hidden></p>
         <div class="explorer-controls" id="exControls">
           <div class="explorer-field">
             <label for="exSearch">Search items</label>
-            <input type="search" id="exSearch" autocomplete="off" placeholder="Item number or description">
+            <input type="search" id="exSearch" autocomplete="off" placeholder="Item number, NSN or description">
+          </div>
+          <div class="explorer-field">
+            <label for="exType">Product type</label>
+            <select id="exType"></select>
           </div>
           <div class="explorer-field">
             <label for="exFamily">Density family</label>
             <select id="exFamily"></select>
-          </div>
-          <div class="explorer-field">
-            <label for="exSize">Size</label>
-            <select id="exSize"></select>
           </div>
           <div class="explorer-field">
             <label for="exStatus">PVON status</label>
@@ -526,14 +518,13 @@
           </div>
           <span class="explorer-count" id="exCount" role="status" aria-live="polite"></span>
         </div>
-        <div class="explorer-table-wrap" id="exTableWrap" tabindex="0" aria-label="Contract item list">
+        <div class="explorer-table-wrap" id="exTableWrap" role="region" tabindex="0" aria-label="Contract item list">
           <table class="explorer-table">
-            <thead>
-              <tr><th scope="col">Item number</th><th scope="col">Description</th><th scope="col">CLIN</th><th scope="col">Medline PVON</th><th scope="col">CHS PVON</th></tr>
-            </thead>
+            <thead id="exHead"></thead>
             <tbody id="exRows"></tbody>
           </table>
         </div>
+        <p class="explorer-download" id="exDownload" hidden><a href="data/Envision_MSPV_Products.xlsx" download>Download the full list (Excel)</a></p>
       </div>
     </div>
   </div>

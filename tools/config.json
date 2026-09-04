@@ -1,5 +1,6 @@
 {
   "contractNumber": "36C10X23G0011",
-  "itemSpreadsheet": "MSPV_Items_7_27_26.xlsx",
+  "itemSpreadsheet": "data/Envision_MSPV_Products.xlsx",
+  "itemListAsOf": "September 2026",
   "itemDataOutput": "data/items.js"
 }

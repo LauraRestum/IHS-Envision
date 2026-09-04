@@ -388,39 +388,98 @@
   var DATA = window.MSPV_ITEMS || { pending: true, items: [] };
   var exSearch = document.getElementById('exSearch');
   var exFamily = document.getElementById('exFamily');
-  var exSize = document.getElementById('exSize');
+  var exType = document.getElementById('exType');
   var exStatus = document.getElementById('exStatus');
+  var exHead = document.getElementById('exHead');
   var exBody = document.getElementById('exRows');
   var exCount = document.getElementById('exCount');
   var exPending = document.getElementById('exPending');
+  var exSummary = document.getElementById('exSummary');
+  var exDownload = document.getElementById('exDownload');
   var exTableWrap = document.getElementById('exTableWrap');
   var exControls = document.getElementById('exControls');
 
+  var NO_FAMILY = 'Not specified';
+  var UNIT_NAMES = { BX: 'Box', CS: 'Case' };
+  var EX_COLUMNS = [
+    { key: 'itemNumber', label: 'Item number' },
+    { key: 'nsn', label: 'NSN' },
+    { key: 'description', label: 'Description' },
+    { key: 'uop', label: 'Unit' },
+    { key: 'qtyPerUop', label: 'Qty per unit', numeric: true },
+    { key: 'clin', label: 'CLIN' },
+    { key: 'medlinePvon', label: 'Medline PVON' },
+    { key: 'chsPvon', label: 'CHS PVON' },
+    { key: 'effectiveDate', label: 'On contract' }
+  ];
+  var exSort = { key: 'itemNumber', dir: 1 };
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
   function fillSelect(sel, values, label) {
-    sel.innerHTML = '<option value="">' + label + '</option>' +
-      values.map(function (v) { return '<option value="' + v + '">' + v + '</option>'; }).join('');
+    sel.innerHTML = '<option value="">' + esc(label) + '</option>' +
+      values.map(function (v) { return '<option value="' + esc(v) + '">' + esc(v) + '</option>'; }).join('');
   }
   function uniq(arr) {
     return arr.filter(function (v, i) { return v && arr.indexOf(v) === i; }).sort();
   }
+  function unitName(u) { return UNIT_NAMES[u] || u || ''; }
+  function pvonCell(pvon, status) {
+    /* Show the number when there is one; show the status only when there is
+       no number (e.g. "Contact Prime Vendor (PV) to Request a PVON"). */
+    if (pvon) return esc(pvon);
+    return status ? '<span class="pvon-status">' + esc(status) + '</span>' : '';
+  }
+  function cellValue(it, key) {
+    if (key === 'uop') return unitName(it.uop);
+    if (key === 'medlinePvon') return pvonCell(it.medlinePvon, it.medlineStatus);
+    if (key === 'chsPvon') return pvonCell(it.chsPvon, it.chsStatus);
+    if (key === 'effectiveDate') return esc(it.effectiveDate || '') + ' to ' + esc(it.completionDate || '');
+    return esc(it[key]);
+  }
+  function sortValue(it, key) {
+    var v = it[key];
+    if (key === 'medlinePvon') v = it.medlinePvon || 'zz ' + (it.medlineStatus || '');
+    if (key === 'chsPvon') v = it.chsPvon || 'zz ' + (it.chsStatus || '');
+    if (v == null) return '';
+    return v;
+  }
+  function renderHead() {
+    exHead.innerHTML = '<tr>' + EX_COLUMNS.map(function (c) {
+      var state = exSort.key === c.key ? (exSort.dir === 1 ? 'ascending' : 'descending') : 'none';
+      return '<th scope="col" aria-sort="' + state + '"><button type="button" class="ex-sort" data-sort="' + c.key + '">' +
+        esc(c.label) + '<span class="ex-sort-arrow" aria-hidden="true">' +
+        (state === 'ascending' ? '▴' : state === 'descending' ? '▾' : '') + '</span></button></th>';
+    }).join('') + '</tr>';
+  }
   function renderExplorer() {
     var q = (exSearch.value || '').toLowerCase();
-    var fam = exFamily.value, size = exSize.value, st = exStatus.value;
+    var fam = exFamily.value, type = exType.value, st = exStatus.value;
     var rows = DATA.items.filter(function (it) {
-      if (fam && it.family !== fam) return false;
-      if (size && it.size !== size) return false;
+      if (fam && (it.family || NO_FAMILY) !== fam) return false;
+      if (type && it.productType !== type) return false;
       if (st && it.medlineStatus !== st && it.chsStatus !== st) return false;
       if (q) {
-        var hay = ((it.itemNumber || '') + ' ' + (it.description || '') + ' ' + (it.clin || '')).toLowerCase();
+        var hay = ((it.itemNumber || '') + ' ' + (it.nsn || '') + ' ' + (it.description || '') + ' ' + (it.clin || '')).toLowerCase();
         if (hay.indexOf(q) === -1) return false;
       }
       return true;
     });
+    var col = null;
+    EX_COLUMNS.forEach(function (c) { if (c.key === exSort.key) col = c; });
+    rows.sort(function (a, b) {
+      var va = sortValue(a, exSort.key), vb = sortValue(b, exSort.key);
+      if (col && col.numeric) { va = parseFloat(va) || 0; vb = parseFloat(vb) || 0; }
+      if (va < vb) return -exSort.dir;
+      if (va > vb) return exSort.dir;
+      return 0;
+    });
+    renderHead();
     exBody.innerHTML = rows.map(function (it) {
-      return '<tr><td>' + (it.itemNumber || '') + '</td><td>' + (it.description || '') +
-        '</td><td>' + (it.clin || '') + '</td><td>' + (it.medlinePvon || '') +
-        (it.medlineStatus ? ' (' + it.medlineStatus + ')' : '') + '</td><td>' + (it.chsPvon || '') +
-        (it.chsStatus ? ' (' + it.chsStatus + ')' : '') + '</td></tr>';
+      return '<tr>' + EX_COLUMNS.map(function (c) {
+        return '<td data-label="' + esc(c.label) + '">' + cellValue(it, c.key) + '</td>';
+      }).join('') + '</tr>';
     }).join('');
     exCount.textContent = rows.length + ' of ' + DATA.items.length + ' items';
   }
@@ -430,24 +489,54 @@
       exControls.hidden = true;
       exTableWrap.hidden = true;
       exCount.hidden = true;
+      exSummary.hidden = true;
+      exDownload.hidden = true;
       return;
     }
     exPending.hidden = true;
     exControls.hidden = false;
     exTableWrap.hidden = false;
     exCount.hidden = false;
-    fillSelect(exFamily, uniq(DATA.items.map(function (i) { return i.family; })), 'All families');
-    fillSelect(exSize, uniq(DATA.items.map(function (i) { return i.size; })), 'All sizes');
+    exDownload.hidden = false;
+
+    /* Slide 7 card: both figures come from the data, never hand-typed. */
+    var countCard = document.getElementById('itemCountCard');
+    var asOfCard = document.getElementById('itemAsOfCard');
+    if (countCard) countCard.textContent = DATA.items.length + ' items';
+    if (asOfCard && DATA.itemListAsOf) asOfCard.textContent = 'On contract as of ' + DATA.itemListAsOf;
+
+    /* Fields identical across every row, stated as contract-listing data. */
+    exSummary.textContent = 'From the contract listing, identical across all ' + DATA.items.length +
+      ' items: contract ' + (DATA.contractNumber || '') + ', category Environmental Services, ' +
+      'minimum order quantity 1, no dropship-only items, country of origin United States, ' +
+      'latex free, non-sterile.';
+    exSummary.hidden = false;
+
+    fillSelect(exType, uniq(DATA.items.map(function (i) { return i.productType; })), 'All product types');
+    fillSelect(exFamily, uniq(DATA.items.map(function (i) { return i.family || NO_FAMILY; })), 'All families');
     fillSelect(exStatus, uniq(DATA.items.map(function (i) { return i.medlineStatus; })
       .concat(DATA.items.map(function (i) { return i.chsStatus; }))), 'All PVON statuses');
-    [exSearch, exFamily, exSize, exStatus].forEach(function (el) {
+    [exSearch, exType, exFamily, exStatus].forEach(function (el) {
       el.addEventListener('input', renderExplorer);
+    });
+    exHead.addEventListener('click', function (e) {
+      var btn = e.target.closest('.ex-sort');
+      if (!btn) return;
+      var key = btn.getAttribute('data-sort');
+      if (exSort.key === key) { exSort.dir = -exSort.dir; }
+      else { exSort.key = key; exSort.dir = 1; }
+      renderExplorer();
+      /* Re-focus the same header button: renderHead replaced the nodes. */
+      var again = exHead.querySelector('[data-sort="' + key + '"]');
+      if (again) again.focus();
     });
     renderExplorer();
   }
   initExplorer();
-  document.getElementById('openExplorer').addEventListener('click', function (e) {
-    openModal('explorerModal', e.currentTarget);
+  Array.prototype.forEach.call(document.querySelectorAll('.js-open-explorer, #openExplorer'), function (btn) {
+    btn.addEventListener('click', function (e) {
+      openModal('explorerModal', e.currentTarget);
+    });
   });
 
   /* ---------- HHSAR citation modal ---------- */

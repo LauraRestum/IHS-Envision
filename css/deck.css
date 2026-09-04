@@ -355,14 +355,15 @@ html[data-motion="reduce"] .flow-track, .motion-off .flow-track { background: va
 
 /* ---------- Slide 7: contract cards ---------- */
 
-.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 14px; flex: 1 1 auto; }
 .ccard {
   background: var(--surface-card); border: 1px solid var(--border-soft);
-  border-radius: 2px; padding: 20px 22px; text-align: left;
-  display: flex; flex-direction: column; gap: 8px; min-height: 128px;
+  border-radius: 2px; padding: 24px 28px; text-align: left;
+  display: flex; flex-direction: column; gap: 10px; min-height: 150px;
 }
-.ccard .ccard-icon { color: var(--green); height: 22px; width: 22px; }
-.ccard .ccard-v { font-size: 1.32rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+.card-note { margin-top: 14px; font-size: 1rem; font-weight: 600; color: var(--text-muted); line-height: 1.5; }
+.ccard .ccard-icon { color: var(--green); height: 26px; width: 26px; }
+.ccard .ccard-v { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
 .ccard .ccard-l { font-size: 1rem; font-weight: 500; color: var(--text-muted); line-height: 1.45; }
 button.ccard { color: var(--text-main); cursor: pointer; font-family: inherit; transition: border-color 0.2s; }
 button.ccard:hover { border-color: var(--green); }
@@ -388,6 +389,7 @@ button.ccard:hover { border-color: var(--green); }
   background: var(--bg-body); border: 1px solid var(--border-soft); border-radius: 2px;
   width: min(980px, 100%); max-height: 88vh; display: flex; flex-direction: column;
 }
+.modal--wide { width: min(1220px, 100%); }
 .modal-head {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding: 20px 26px; border-bottom: 1px solid var(--border-soft); flex: 0 0 auto;
@@ -401,6 +403,10 @@ button.ccard:hover { border-color: var(--green); }
 .modal-close:hover { border-color: var(--green); }
 .modal-body { padding: 22px 26px; overflow-y: auto; font-size: 1rem; line-height: 1.6; }
 
+.explorer-summary {
+  font-size: 1rem; font-weight: 500; color: var(--text-muted); line-height: 1.55;
+  border-left: 2px solid var(--border-green); padding-left: 14px; margin-bottom: 16px;
+}
 .explorer-controls { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; align-items: flex-end; }
 .explorer-field { display: flex; flex-direction: column; gap: 5px; }
 .explorer-field label {
@@ -421,7 +427,33 @@ button.ccard:hover { border-color: var(--green); }
   text-transform: uppercase; color: var(--green);
   background: var(--blue-dark); padding: 10px 12px; position: sticky; top: 0;
 }
-.explorer-table td { padding: 9px 12px; border-top: 1px solid var(--border-soft); font-weight: 500; vertical-align: top; }
+.explorer-table th { padding: 0; }
+.ex-sort {
+  display: flex; align-items: center; gap: 6px; width: 100%; min-height: 44px;
+  background: none; border: 0; cursor: pointer; text-align: left;
+  font: inherit; font-weight: 700; color: inherit; letter-spacing: inherit;
+  text-transform: inherit; padding: 10px 12px;
+}
+.ex-sort:hover { color: var(--text-main); }
+.ex-sort-arrow { min-width: 0.8em; }
+/* Data cells render source values verbatim: no text-transform, ever. */
+.explorer-table td { padding: 9px 12px; border-top: 1px solid var(--border-soft); font-weight: 500; vertical-align: top; text-transform: none; }
+.pvon-status { color: var(--text-muted); font-weight: 500; }
+.explorer-download { margin-top: 14px; font-size: 1rem; font-weight: 600; }
+.explorer-download a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+.explorer-download a:hover, .explorer-download a:focus-visible { color: var(--text-main); }
+
+/* Under ~700px the table stacks into cards so nothing scrolls sideways. */
+@media (max-width: 700px) {
+  .explorer-table, .explorer-table tbody, .explorer-table tr, .explorer-table td { display: block; }
+  .explorer-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .explorer-table tr { border-top: 1px solid var(--border-soft); padding: 10px 0; }
+  .explorer-table td { border-top: 0; padding: 4px 12px; }
+  .explorer-table td::before {
+    content: attr(data-label); display: block; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--green);
+  }
+}
 .explorer-pending {
   border: 1px solid var(--border-soft); border-left: 2px solid var(--gold); border-radius: 2px;
   padding: 20px 24px; font-size: 1rem; line-height: 1.6; color: var(--text-main);
