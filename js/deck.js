@@ -285,6 +285,7 @@
 
   var GLOSSARY = {
     mspv: ['MSPV', 'The VA Medical/Surgical Prime Vendor program: a pre-competed national vehicle for medical, surgical, dental, laboratory and environmental supplies.'],
+    boa: ['BOA', 'A Basic Ordering Agreement with the VA: a standing written agreement that sets the terms for orders placed as needs arise (FAR 16.703).'],
     pvon: ['PVON', 'The item-level Prime Vendor order number. Each contract item carries one, and your Prime Vendor can establish one on request.'],
     'procurement-list': ['AbilityOne Procurement List', 'The list of items that FAR 8.002 makes required sources for federal purchases. The U.S. AbilityOne Commission approves every item added and its fair market price.'],
     hhsar: ['HHSAR', 'The acquisition regulation covering HHS agencies, including IHS. Subpart 326.6 states when the Buy Indian Act does not apply.'],
