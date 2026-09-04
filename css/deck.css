@@ -549,6 +549,8 @@ button.ccard:hover { border-color: var(--green-text); }
 /* Data cells render source values verbatim: no text-transform, ever. */
 .explorer-table td { padding: 9px 12px; border-top: 1px solid var(--border-soft); font-weight: 500; vertical-align: top; text-transform: none; }
 .pvon-status { color: var(--text-muted); font-weight: 500; }
+.ex-meta { display: block; font-size: 1rem; font-weight: 500; color: var(--text-muted); margin-top: 3px; }
+.ex-nowrap { white-space: nowrap; }
 .explorer-download { margin-top: 14px; font-size: 1rem; font-weight: 600; }
 .explorer-download a { color: var(--green-text); text-decoration: underline; text-underline-offset: 3px; }
 .explorer-download a:hover, .explorer-download a:focus-visible { color: var(--text-main); }

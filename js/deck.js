@@ -425,16 +425,17 @@
 
   var NO_FAMILY = 'Not specified';
   var UNIT_NAMES = { BX: 'Box', CS: 'Case' };
+  /* CLIN and each item's contract dates render as a secondary line under
+     the description, keeping the primary row narrow enough to avoid
+     horizontal scrolling on laptop screens. */
   var EX_COLUMNS = [
     { key: 'itemNumber', label: 'Item number' },
     { key: 'nsn', label: 'NSN' },
     { key: 'description', label: 'Description' },
     { key: 'uop', label: 'Unit' },
     { key: 'qtyPerUop', label: 'Qty per unit', numeric: true },
-    { key: 'clin', label: 'CLIN' },
     { key: 'medlinePvon', label: 'Medline PVON' },
-    { key: 'chsPvon', label: 'CHS PVON' },
-    { key: 'effectiveDate', label: 'On contract' }
+    { key: 'chsPvon', label: 'CHS PVON' }
   ];
   var exSort = { key: 'itemNumber', dir: 1 };
 
@@ -459,7 +460,12 @@
     if (key === 'uop') return unitName(it.uop);
     if (key === 'medlinePvon') return pvonCell(it.medlinePvon, it.medlineStatus);
     if (key === 'chsPvon') return pvonCell(it.chsPvon, it.chsStatus);
-    if (key === 'effectiveDate') return esc(it.effectiveDate || '') + ' to ' + esc(it.completionDate || '');
+    if (key === 'description') {
+      return esc(it.description) +
+        '<span class="ex-meta">CLIN ' + esc(it.clin || '') + ' | On contract ' +
+        '<span class="ex-nowrap">' + esc(it.effectiveDate || '') + '</span> to ' +
+        '<span class="ex-nowrap">' + esc(it.completionDate || '') + '</span></span>';
+    }
     return esc(it[key]);
   }
   function sortValue(it, key) {
