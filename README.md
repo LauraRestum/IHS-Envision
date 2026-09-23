@@ -1,6 +1,6 @@
 # Supporting the IHS mission through MSPV
 
-An interactive, single-page HTML webinar presentation for Indian Health Service procurement professionals, presented by Dedra Griffin (Envision). 14 slides, 16:9 stage, in the same family as the Envision capabilities decks.
+An interactive, single-page HTML webinar presentation for Indian Health Service procurement professionals, presented by Dedra Griffin (Envision). 15 slides, 16:9 stage, in the same family as the Envision capabilities decks.
 
 **Status: post-review draft.** Dedra Griffin's review (sections applied September 2026) is incorporated. The shipped page is attendee-clean (no presenter notes or internal flags in the HTML). Judy at IHS reviews before anything goes live, and nothing ships publicly until Laura clears it. It carries `noindex` (meta tag plus an `X-Robots-Tag` header via `vercel.json`) until that clearance.
 
@@ -47,11 +47,11 @@ The deck carries no QR codes: envisionus.com is written out only where it is a g
 | Item | Lives on | Status |
 |---|---|---|
 | Session date | Slide 1 | Waiting on scheduling with Judy |
-| Prime Vendor names (x2) | Slide 13 | Dedra is confirming which two Prime Vendors serve IHS; the review meeting pointed to Cardinal Health and McKesson |
-| Prime Vendor contact names, emails, phones | Slide 13 | Outstanding until the vendors are confirmed |
-| Rob's last name, email, phone (print program) | Slide 6 | Rob is Program Manager for print; his contact appears only on slide 6 so nobody contacts him about MSPV |
-| Dakota Western description | Slide 11 | Wording per Dedra's review ("an Indian-owned company that supplies film for our can liner production"); verify with Dakota Western before presenting |
-| HDPE and LLDPE property characterizations | Slide 9 | Verify against Envision spec sheets |
+| Prime Vendor names (x2) | Slide 14 | Dedra is confirming which two Prime Vendors serve IHS; the review meeting pointed to Cardinal Health and McKesson |
+| Prime Vendor contact names, emails, phones | Slide 14 | Outstanding until the vendors are confirmed |
+| Rob's last name, email, phone (print program) | Slide 7 | Rob is Program Manager for print; his contact appears only on slide 7 so nobody contacts him about MSPV |
+| Dakota Western description | Slide 12 | Wording per Dedra's review ("an Indian-owned company that supplies film for our can liner production"); verify with Dakota Western before presenting |
+| HDPE and LLDPE property characterizations | Slide 10 | Verify against Envision spec sheets |
 | Light-ground logo files | Slides 1 and chrome | White Envision and IHS logos sit on a navy chip in the light theme until light-ground versions are supplied |
 
 Resolved since the pre-review draft: Dedra's title and contact (done), the blind labor stat (82%), the second Prime Vendor question (both names are placeholders now), the contract end date (Oct 14, 2028 on the card; each item's own dates show in the explorer), and the item spreadsheet conversion (populated).
@@ -69,6 +69,6 @@ tools/                   Item spreadsheet converter, config (excluded from deplo
 IMAGERY-AUDIT.md         Slide-by-slide imagery audit and capabilities-repo image map
 ```
 
-Slide order: 1 Title, 2 Built for federal scale, 3 The AbilityOne Program, 4 How AbilityOne works, 5 Your mission and ours, 6 Everything Envision supplies (print carve-out), 7 The MSPV program, 8 Contract at a glance, 9 Know your liners, 10 Why order through MSPV, 11 AbilityOne and the Buy Indian Act, 12 Training and support, 13 How to order, 14 Closing.
+Slide order: 1 Title, 2 Built for federal scale, 3 The AbilityOne Program, 4 How AbilityOne works, 5 Your mission and ours, 6 Everything Envision supplies (capabilities and services), 7 Print: a separate process, 8 The MSPV program, 9 Contract at a glance, 10 Know your liners, 11 Why order through MSPV, 12 AbilityOne and the Buy Indian Act, 13 Training and support, 14 How to order, 15 Closing.
 
 The deck is attendee-facing: it contains no presenter notes, internal flags, or presenter tooling. Dedra's talk track is kept outside this repository.
