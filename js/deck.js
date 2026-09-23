@@ -312,6 +312,7 @@
     boa: ['BOA', 'A Basic Ordering Agreement with the VA: a standing written agreement that sets the terms for orders placed as needs arise (FAR 16.703).'],
     pvon: ['PVON', 'The item-level Prime Vendor order number. Each contract item carries one, and your Prime Vendor can establish one on request.'],
     'procurement-list': ['AbilityOne Procurement List', 'The list of items that FAR 8.002 makes required sources for federal purchases. The U.S. AbilityOne Commission approves every item added and its fair market price.'],
+    nsn: ['NSN', 'National Stock Number: the 13-digit federal identifier for a supply item. AbilityOne print products such as business cards are ordered by their NSN.'],
     hhsar: ['HHSAR', 'The acquisition regulation covering HHS agencies, including IHS. Subpart 326.6 states when the Buy Indian Act does not apply.'],
     'micro-purchase': ['Micro-purchase threshold', 'The $15,000 ceiling on purchase-card micro-purchases, effective October 1, 2025. Orders through MSPV run against an existing federal contract instead.'],
     hdpe: ['HDPE', 'High density polyethylene: thin gauge with high strength for its weight, best for routine dry waste.'],

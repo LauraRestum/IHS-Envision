@@ -288,8 +288,9 @@ h3 { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
 .title-byline {
   font-size: 1rem; font-weight: 600; letter-spacing: 0.03em;
   color: var(--text-muted); border-top: 1px solid var(--border-soft); padding-top: 1.2rem;
-  max-width: 700px; line-height: 1.7;
+  max-width: 860px; line-height: 1.7;
 }
+.title-presenters { display: block; color: var(--text-main); white-space: nowrap; }
 .motion-ok .slide.active .rise { animation: riseIn 0.6s ease-out both; }
 .motion-ok .slide.active .rise-2 { animation: riseIn 0.6s 0.14s ease-out both; }
 .motion-ok .slide.active .rise-3 { animation: riseIn 0.6s 0.28s ease-out both; }
