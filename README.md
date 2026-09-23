@@ -49,8 +49,7 @@ The deck carries no QR codes: envisionus.com is written out only where it is a g
 | Session date | Slide 1 | Waiting on scheduling with Judy |
 | Prime Vendor names (x2) | Slide 14 | Dedra is confirming which two Prime Vendors serve IHS; the review meeting pointed to Cardinal Health and McKesson |
 | Prime Vendor contact names, emails, phones | Slide 14 | Outstanding until the vendors are confirmed |
-| Rob's last name (print program) | Slides 1 and 7 | Rob presents the print portion; the title slide lists him as Program Manager, Envision Print, alongside Dedra so the two programs read as separate, not a reporting line |
-| Rob's email, phone | Slide 7 | His contact details appear only on slide 7 so nobody contacts him about MSPV |
+| Rob Narron's email, phone | Slide 7 | Rob Narron, Program Manager, Print, presents the print portion and is named on slides 1 and 7. His contact details appear only on slide 7 so nobody contacts him about MSPV |
 | Print price list PDF link | Slide 7 | Rob is sending the AbilityOne set-aside print list with NSNs (business cards and other print products) |
 | Dakota Western description | Slide 12 | Wording per Dedra's review ("an Indian-owned company that supplies film for our can liner production"); verify with Dakota Western before presenting |
 | HDPE and LLDPE property characterizations | Slide 10 | Verify against Envision spec sheets |
