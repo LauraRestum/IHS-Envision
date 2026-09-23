@@ -69,6 +69,6 @@ tools/                   Item spreadsheet converter, config (excluded from deplo
 IMAGERY-AUDIT.md         Slide-by-slide imagery audit and capabilities-repo image map
 ```
 
-Slide order: 1 Title, 2 Built for federal scale, 3 The AbilityOne Program, 4 How AbilityOne works, 5 Your mission and ours, 6 Everything Envision supplies (capabilities and services), 7 Print: a separate process, 8 The MSPV program, 9 Contract at a glance, 10 Know your liners, 11 Why order through MSPV, 12 AbilityOne and the Buy Indian Act, 13 Training and support, 14 How to order, 15 Closing.
+Slide order: 1 Title, 2 Built for federal scale, 3 The AbilityOne Program, 4 How AbilityOne works, 5 Your mission and ours, 6 Everything Envision supplies (capabilities and services), 7 Print and Contact Center, 8 The MSPV program, 9 Contract at a glance, 10 Know your liners, 11 Why order through MSPV, 12 AbilityOne and the Buy Indian Act, 13 Training and support, 14 How to order, 15 Closing.
 
 The deck is attendee-facing: it contains no presenter notes, internal flags, or presenter tooling. Dedra's talk track is kept outside this repository.

@@ -56,7 +56,7 @@ cp ../envision-capabilites-services/images/<file> assets/img/<descriptive-name>.
 | 4 How AbilityOne works | No image | The org chart is the visual. |
 | 5 Your mission and ours | Optional | A single people-centric `.photo-card` under the panels could work if desired: `images/envision-employee-with-guide-dog-factory.jpg` or `images/employee-factory-wichita.jpg`. Not required; the paired quotes carry the slide. |
 | 6 Everything Envision supplies | No image | Capabilities and services tile grid fills the slide. |
-| 7 Print: a separate process | Optional | Print carve-out and contact card. A small `.photo-card` with `images/Envision-print-lableroll.jpg` could sit under the service bullets if wanted. |
+| 7 Print and Contact Center | No image | Two half panels (Print, Contact Center) plus Rob's contact card fill the slide. |
 | 8 The MSPV program | No image | The order-flow diagram is the visual. |
 | 9 Contract at a glance | No image | Card grid is full. |
 | 10 Know your liners | **Wired** + two ready | HDPE and LLDPE product tiles are in. Ready when wanted: `images/products/medical-isolation-bags.jpg` (the color-coded isolation liners named in the closing line) and `images/products/can-liner-compostable.jpg`, both white-ground shots that drop straight onto a `.product-tile`. |
