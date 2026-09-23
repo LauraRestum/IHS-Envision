@@ -463,9 +463,7 @@
     if (key === 'chsPvon') return pvonCell(it.chsPvon, it.chsStatus);
     if (key === 'description') {
       return esc(it.description) +
-        '<span class="ex-meta">CLIN ' + esc(it.clin || '') + ' | On contract ' +
-        '<span class="ex-nowrap">' + esc(it.effectiveDate || '') + '</span> to ' +
-        '<span class="ex-nowrap">' + esc(it.completionDate || '') + '</span></span>';
+        '<span class="ex-meta">CLIN ' + esc(it.clin || '') + '</span>';
     }
     return esc(it[key]);
   }
