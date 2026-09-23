@@ -56,7 +56,7 @@ cp ../envision-capabilites-services/images/<file> assets/img/<descriptive-name>.
 | 4 How AbilityOne works | No image | The org chart is the visual. |
 | 5 Your mission and ours | Optional | A single people-centric `.photo-card` under the panels could work if desired: `images/envision-employee-with-guide-dog-factory.jpg` or `images/employee-factory-wichita.jpg`. Not required; the paired quotes carry the slide. |
 | 6 Everything Envision supplies | No image | Capabilities and services tile grid fills the slide. |
-| 7 Print and Contact Center | **Wired** | Rob Narron's photo (`assets/img/rob-narron.jpg`, a 200px full-length portrait) is cropped in CSS to head and shoulders on his contact card, beneath the Print and Contact Center halves. A higher-resolution headshot would sharpen it. |
+| 7 Print and Contact Center | No image | Two half panels (Print, Contact Center) plus Rob's contact card fill the slide. |
 | 8 The MSPV program | No image | The order-flow diagram is the visual. |
 | 9 Contract at a glance | No image | Card grid is full. |
 | 10 Know your liners | **Wired** + two ready | HDPE and LLDPE product tiles are in. Ready when wanted: `images/products/medical-isolation-bags.jpg` (the color-coded isolation liners named in the closing line) and `images/products/can-liner-compostable.jpg`, both white-ground shots that drop straight onto a `.product-tile`. |
@@ -64,7 +64,7 @@ cp ../envision-capabilites-services/images/<file> assets/img/<descriptive-name>.
 | 12 Buy Indian Act | No image | Legal content; the quote card is the focus. |
 | 13 Training and support | No image | Interactive tile grid is full. |
 | 14 How to order | **Wired** | Manufacturing-floor photo card fills the space the QR card held, above the Prime Vendor contacts. |
-| 15 Closing | Complete | Dedra's headshot carries the card; the QR tile is removed and the card rebalances without it. |
+| 15 Closing | Complete | Dedra's and Rob's contact cards stack in the left column, each with a photo. Rob's (`assets/img/rob-narron.jpg`, a 200px full-length portrait) is cropped in CSS to head and shoulders; a higher-resolution headshot would sharpen it. |
 
 ## Accessibility check on the additions
 

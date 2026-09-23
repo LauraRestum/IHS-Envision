@@ -752,13 +752,6 @@ button.ccard:hover { border-color: var(--green-text); }
   font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--green-text); display: block; margin-bottom: 0.7rem;
 }
-.pv-card--photo { display: flex; align-items: center; gap: 18px; }
-.pv-photo {
-  width: 72px; height: 72px; flex: 0 0 auto; overflow: hidden; position: relative;
-  border-radius: 2px; border: 1px solid var(--border-soft);
-}
-/* Source is a full-length 200px portrait: scale to 220px and offset to frame head and shoulders. */
-.pv-photo img { position: absolute; width: 220px; height: 220px; max-width: none; left: -79px; top: -10px; }
 .pv-card ul { list-style: none; display: grid; gap: 10px; }
 .pv-card li { font-size: 1rem; font-weight: 600; line-height: 1.55; }
 .placeholder-chip {
@@ -780,6 +773,12 @@ button.ccard:hover { border-color: var(--green-text); }
   border-radius: 2px; object-fit: cover;
   border: 1px solid var(--border-soft);
 }
+.contact-stack { display: grid; gap: 14px; }
+.contact-stack .contact-card { padding: 18px 24px; gap: 22px; }
+.contact-stack .contact-photo { width: 96px; height: 96px; }
+.contact-photo--crop { display: block; overflow: hidden; position: relative; }
+/* Rob's source is a full-length 200px portrait: scale up and offset to frame head and shoulders. */
+.contact-photo--crop img { position: absolute; width: 210px; height: 210px; max-width: none; left: -63px; top: -6px; }
 .pv-card a, .contact-lines a { color: inherit; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .pv-card a:hover, .contact-lines a:hover { color: var(--green-text); }
 .contact-card .contact-name { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.01em; }
