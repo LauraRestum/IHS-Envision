@@ -49,17 +49,16 @@ The deck carries no QR codes: envisionus.com is written out only where it is a g
 | Session date | Slide 1 | Waiting on scheduling with Judy |
 | Prime Vendor names (x2) | Slide 14 | Dedra is confirming which two Prime Vendors serve IHS; the review meeting pointed to Cardinal Health and McKesson |
 | Prime Vendor contact names, emails, phones | Slide 14 | Outstanding until the vendors are confirmed |
-| Rob's last name, email, phone (print program) | Slide 7 | Rob is Program Manager for print; his contact appears only on slide 7 so nobody contacts him about MSPV |
 | Dakota Western description | Slide 12 | Wording per Dedra's review ("an Indian-owned company that supplies film for our can liner production"); verify with Dakota Western before presenting |
 | HDPE and LLDPE property characterizations | Slide 10 | Verify against Envision spec sheets |
 | Light-ground logo files | Slides 1 and chrome | White Envision and IHS logos sit on a navy chip in the light theme until light-ground versions are supplied |
 
-Resolved since the pre-review draft: Dedra's title and contact (done), the blind labor stat (82%), the second Prime Vendor question (both names are placeholders now), the contract end date (Oct 14, 2028 on the card; each item's own dates show in the explorer), and the item spreadsheet conversion (populated).
+Resolved since the pre-review draft: Dedra's title and contact (done), the blind labor stat (82%), the second Prime Vendor question (both names are placeholders now), the contract end date (Oct 14, 2028 on the card; each item's own dates show in the explorer), the item spreadsheet conversion (populated), and Rob Narron's print program contact (slide 7, plus a clearly labeled print card on the closing slide per Dedra's September notes).
 
 ## Structure
 
 ```
-index.html               The deck (14 slides, modals, glossary)
+index.html               The deck (15 slides, modals, glossary)
 css/deck.css             Design system: tokens (dark, light, high contrast themes), motion, print stylesheet
 js/deck.js               Deck engine (navigation, modals, item explorer, display preferences)
 data/items.js            Item explorer data (generated from the spreadsheet; never hand-edited)
