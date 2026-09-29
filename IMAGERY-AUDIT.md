@@ -44,7 +44,8 @@ cp ../envision-capabilites-services/images/<file> assets/img/<descriptive-name>.
 |---|---|---|---|
 | 10, Know your liners | `assets/img/can-liner-hdpe.jpg` on the HDPE panel | `images/products/can-liner-lldpe.jpg` (the capabilities repo's filenames were flipped; Dedra's review confirmed the swap. The crisp-creased thin-film shot now sits under HDPE) | `.product-tile` (white) |
 | 10, Know your liners | `assets/img/can-liner-lldpe.jpg` on the LLDPE panel | `images/products/can-liner-hdpe.jpg` (the taut, stretched-film shot now sits under LLDPE) | `.product-tile` (white) |
-| 14, How to order | `assets/img/wichita-manufacturing-floor.jpg` in the side column (replaces the QR card) | `images/envision-manufacturing-floor-bag-machines.jpg` | `.photo-card` |
+| 7, Print: a separate process | `assets/img/rob-narron.jpg` on the print program contact card | Supplied by Laura (uploaded Sept 23), not from the capabilities repo | `.contact-photo--sm` |
+| 14, How to order | `assets/img/wichita-manufacturing-floor.jpg` in the side column (replaces the QR card; taller now that the placeholder Prime Vendor card is removed) | `images/envision-manufacturing-floor-bag-machines.jpg` | `.photo-card` |
 
 ## Slide-by-slide
 
