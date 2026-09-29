@@ -46,9 +46,8 @@ The deck carries no QR codes: envisionus.com is written out only where it is a g
 
 | Item | Lives on | Status |
 |---|---|---|
-| Session date | Slide 1 | Waiting on scheduling with Judy |
-| Prime Vendor names (x2) | Slide 14 | Dedra is confirming which two Prime Vendors serve IHS; the review meeting pointed to Cardinal Health and McKesson |
-| Prime Vendor contact names, emails, phones | Slide 14 | Outstanding until the vendors are confirmed |
+| Session date | Was on slide 1 | Removed from the byline until scheduled with Judy; add it back when the date is set |
+| Prime Vendor names and contacts (x2) | Was on slide 14 | The placeholder card is removed until Dedra confirms the two Prime Vendors (the review meeting pointed to Cardinal Health and McKesson); re-add a Prime Vendor contacts card on slide 14 when confirmed |
 | Dakota Western description | Slide 12 | Wording per Dedra's review ("an Indian-owned company that supplies film for our can liner production"); verify with Dakota Western before presenting |
 | HDPE and LLDPE property characterizations | Slide 10 | Verify against Envision spec sheets |
 | Light-ground logo files | Slides 1 and chrome | White Envision and IHS logos sit on a navy chip in the light theme until light-ground versions are supplied |

@@ -728,6 +728,7 @@ button.ccard:hover { border-color: var(--green-text); }
   overflow: hidden;
 }
 .photo-card img { display: block; width: 100%; height: 150px; object-fit: cover; }
+.photo-card--tall img { height: 240px; }
 .photo-card figcaption {
   padding: 10px 14px; font-size: 1rem; font-weight: 600;
   color: var(--text-muted); line-height: 1.4;
