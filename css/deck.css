@@ -745,6 +745,10 @@ button.ccard:hover { border-color: var(--green-text); }
 .pv-card li { font-size: 1rem; font-weight: 600; line-height: 1.55; }
 .pv-card a { color: inherit; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .pv-card a:hover, .pv-card a:focus-visible { color: var(--green-text); }
+.pv-person { display: flex; gap: 16px; align-items: center; }
+.contact-photo--sm { width: 96px; height: 96px; }
+.contact-name--sm { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em; }
+.contact-lines--tight { margin-top: 6px; line-height: 1.6; }
 .placeholder-chip {
   display: inline-block; background: var(--gold-dim); border: 1px dashed var(--gold-border);
   border-radius: 2px; color: var(--gold); font-size: 1rem; font-weight: 700;
