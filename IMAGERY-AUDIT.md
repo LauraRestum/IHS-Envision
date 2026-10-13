@@ -40,40 +40,40 @@ cp ../envision-capabilites-services/images/<file> assets/img/<descriptive-name>.
 
 ## Wired in now
 
+The October 2026 restructure (15 slides to 10) removed Know your liners and
+How to order, so the HDPE/LLDPE product tiles and the Wichita
+manufacturing-floor photo card no longer appear. The files stay in
+`assets/img/` for reuse.
+
 | Slide | Image | Source in capabilities repo | Treatment |
 |---|---|---|---|
-| 10, Know your liners | `assets/img/can-liner-hdpe.jpg` on the HDPE panel | `images/products/can-liner-lldpe.jpg` (the capabilities repo's filenames were flipped; Dedra's review confirmed the swap. The crisp-creased thin-film shot now sits under HDPE) | `.product-tile` (white) |
-| 10, Know your liners | `assets/img/can-liner-lldpe.jpg` on the LLDPE panel | `images/products/can-liner-hdpe.jpg` (the taut, stretched-film shot now sits under LLDPE) | `.product-tile` (white) |
-| 7, Print: a separate process | `assets/img/rob-narron.jpg` on the print program contact card | Supplied by Laura (uploaded Sept 23), not from the capabilities repo | `.contact-photo--sm` |
-| 14, How to order | `assets/img/wichita-manufacturing-floor.jpg` in the side column (replaces the QR card; taller now that the placeholder Prime Vendor card is removed) | `images/envision-manufacturing-floor-bag-machines.jpg` | `.photo-card` |
+| 9, Print | `assets/img/rob-narron.jpg` on the print program contact card | Supplied by Laura (uploaded Sept 23), not from the capabilities repo | `.contact-photo--sm` |
+| 10, Closing | `assets/img/dedra-griffin.jpg` and `assets/img/rob-narron.jpg` on the contact cards | Supplied headshots | `.contact-photo` |
+
+Unused but ready: `can-liner-hdpe.jpg` and `can-liner-lldpe.jpg` (the
+capabilities repo's filenames were flipped; Dedra's review confirmed the
+swap), and `wichita-manufacturing-floor.jpg`
+(`images/envision-manufacturing-floor-bag-machines.jpg`).
 
 ## Slide-by-slide
 
 | Slide | Verdict | Notes and candidates |
 |---|---|---|
 | 1 Title | No image | The ambient gradient treatment is the design. A photo would compete with the display title. |
-| 2 Built for federal scale | Open slot, needs a copy trim first | The natural proof photo lives here, but the slide is full (4 stats + 5 bullets). If a bullet is cut, add a two-up campus strip: `images/campus-card-wichita.jpg` + `images/campus-card-dallas.jpg`, or a single `.photo-card` with `images/envision-dallas-warehouse-aisle.jpg`. |
-| 3 AbilityOne Program | No image | Stat slide; the numbers are the visual. |
-| 4 How AbilityOne works | No image | The org chart is the visual. |
-| 5 Your mission and ours | Optional | A single people-centric `.photo-card` under the panels could work if desired: `images/envision-employee-with-guide-dog-factory.jpg` or `images/employee-factory-wichita.jpg`. Not required; the paired quotes carry the slide. |
+| 2 Built for federal scale | Open slot, needs a copy trim first | The slide is full (4 stats + 6 bullets). If a bullet is cut, add a two-up campus strip: `images/campus-card-wichita.jpg` + `images/campus-card-dallas.jpg`. |
+| 3 How AbilityOne works | No image | The org chart is the visual. |
+| 4 Your mission and ours | Optional | A single people-centric `.photo-card` could work: `images/envision-employee-with-guide-dog-factory.jpg` or `images/employee-factory-wichita.jpg`. |
+| 5 Buy Indian Act | No image | Legal content; the quote card is the focus. |
 | 6 Everything Envision supplies | No image | Capabilities and services tile grid fills the slide. |
-| 7 Print: a separate process | Optional | Print carve-out and contact card. A small `.photo-card` with `images/Envision-print-lableroll.jpg` could sit under the service bullets if wanted. |
-| 8 The MSPV program | No image | The order-flow diagram is the visual. |
-| 9 Contract at a glance | No image | Card grid is full. |
-| 10 Know your liners | **Wired** + two ready | HDPE and LLDPE product tiles are in. Ready when wanted: `images/products/medical-isolation-bags.jpg` (the color-coded isolation liners named in the closing line) and `images/products/can-liner-compostable.jpg`, both white-ground shots that drop straight onto a `.product-tile`. |
-| 11 Why order through MSPV | Optional | The "Employment with every order" row could carry a small portrait tile (`images/envision-workforce-team-member-headset.jpg`), but the five-row rhythm is tight; only add if a row is shortened. |
-| 12 Buy Indian Act | No image | Legal content; the quote card is the focus. |
-| 13 Training and support | No image | Interactive tile grid is full. |
-| 14 How to order | **Wired** | Manufacturing-floor photo card fills the space the QR card held, above the Prime Vendor contacts. |
-| 15 Closing | Complete | Dedra's headshot carries the card; the QR tile is removed and the card rebalances without it. |
+| 7 How to buy | No image | Three channel columns and the distributor card fill the slide. |
+| 8 Contract at a glance | No image | Card grid is full. |
+| 9 Print | Optional | A small `.photo-card` with `images/Envision-print-lableroll.jpg` could sit under the contact card if wanted. |
+| 10 Closing | Complete | Dedra's and Rob's headshots carry the contact cards. |
 
 ## Accessibility check on the additions
 
-- Every wired image has descriptive alt text; the slide-13 caption is a
-  visible `figcaption`, so the alt describes the scene rather than repeating it.
-- The white product tiles are content grounds inside cards, not page
-  backgrounds; the dark system and its verified contrast pairs are unchanged.
-- Captions use `--text-muted` (0.62 white on the card surface), above the
+- Every wired image has descriptive alt text.
+- Captions, when used, are a visible `figcaption`, and use `--text-muted` (0.62 white on the card surface), above the
   0.52 floor for informational text on the dark surfaces.
 - No new motion was introduced; the removed QR glow animation took the deck's
   only decorative box-shadow pulse with it.

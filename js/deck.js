@@ -1,5 +1,5 @@
 /* Deck engine: navigation, builds, modals, popovers,
-   item explorer, liner picker, org chart and flow moments.
+   item explorer and org chart moments.
    Keyboard-first, screen-share safe, reduced-motion aware. */
 (function () {
   'use strict';
@@ -119,23 +119,6 @@
     org.classList.add('pulsing');
   }
 
-  function playFlow(slide) {
-    var flow = slide.querySelector('.flow');
-    if (!flow) return;
-    var steps = flow.querySelectorAll('.flow-step');
-    Array.prototype.forEach.call(steps, function (s) { s.classList.remove('lit'); });
-    flow.classList.remove('playing');
-    if (motionReduced()) {
-      Array.prototype.forEach.call(steps, function (s) { s.classList.add('lit'); });
-      return;
-    }
-    void flow.offsetWidth;
-    flow.classList.add('playing');
-    Array.prototype.forEach.call(steps, function (s, i) {
-      later(function () { s.classList.add('lit'); }, 250 + i * 800);
-    });
-  }
-
   function playTicks(slide) {
     var items = slide.querySelectorAll('.next-steps li');
     if (!items.length) return;
@@ -151,9 +134,9 @@
 
   function slideMoments(slide) {
     runCountups(slide);
-    if (slide.id === 'slide-4') later(function () { playOrgPulse(slide); }, motionReduced() ? 0 : 350);
-    if (slide.id === 'slide-8') later(function () { playFlow(slide); }, motionReduced() ? 0 : 300);
-    if (slide.id === 'slide-15') playTicks(slide);
+    /* Keyed to content, not slide numbers, so reordering the deck is safe. */
+    if (slide.querySelector('.org')) later(function () { playOrgPulse(slide); }, motionReduced() ? 0 : 350);
+    if (slide.querySelector('.next-steps')) playTicks(slide);
   }
 
   /* ---------- navigation ---------- */
@@ -313,9 +296,9 @@
     pvon: ['PVON', 'The item-level Prime Vendor order number. Each contract item carries one, and your Prime Vendor can establish one on request.'],
     'procurement-list': ['AbilityOne Procurement List', 'The list of items that FAR 8.002 makes required sources for federal purchases. The U.S. AbilityOne Commission approves every item added and its fair market price.'],
     hhsar: ['HHSAR', 'The acquisition regulation covering HHS agencies, including IHS. Subpart 326.6 states when the Buy Indian Act does not apply.'],
-    'micro-purchase': ['Micro-purchase threshold', 'The $15,000 ceiling on purchase-card micro-purchases, effective October 1, 2025. Orders through MSPV run against an existing federal contract instead.'],
-    hdpe: ['HDPE', 'High density polyethylene: thin gauge with high strength for its weight, best for routine dry waste.'],
-    lldpe: ['LLDPE', 'Linear low density polyethylene: stretch, puncture and tear resistance, best for heavy, wet or sharp-edged waste.']
+    dapa: ['DAPA', 'A Distribution and Pricing Agreement with the Defense Logistics Agency: it sets the price and distribution terms for a manufacturer\'s items ordered through a distributor.'],
+    ecat: ['eCAT', 'The Defense Logistics Agency\'s Electronic Catalog for medical items, reached through the DLA Medical portal.'],
+    nsn: ['NSN', 'National Stock Number: the 13-digit number that identifies an item across the federal supply system. Use it to find the item on GSA Advantage or AbilityOne.com, or to order direct from Envision.']
   };
   var openPop = null;
   function closeAllPopovers() {
@@ -378,7 +361,7 @@
   var orgReplay = document.getElementById('orgReplay');
   if (orgReplay) {
     orgReplay.addEventListener('click', function () {
-      var slide = document.getElementById('slide-4');
+      var slide = orgReplay.closest('.slide');
       clearTimers();
       if (motionReduced()) { revealAllSteps(slide); playOrgPulse(slide); return; }
       resetSteps(slide);
@@ -386,10 +369,6 @@
       steps.forEach(function (el, i) { later(function () { el.classList.add('on'); }, 150 + i * 240); });
       later(function () { playOrgPulse(slide); }, 150 + steps.length * 240);
     });
-  }
-  var flowReplay = document.getElementById('flowReplay');
-  if (flowReplay) {
-    flowReplay.addEventListener('click', function () { playFlow(document.getElementById('slide-8')); });
   }
 
   /* ---------- copy contract number ---------- */
@@ -529,7 +508,7 @@
     exCount.hidden = false;
     exDownload.hidden = false;
 
-    /* Slide 7 card: both figures come from the data, never hand-typed. */
+    /* Contract-at-a-glance card: both figures come from the data, never hand-typed. */
     var countCard = document.getElementById('itemCountCard');
     var asOfCard = document.getElementById('itemAsOfCard');
     if (countCard) countCard.textContent = DATA.items.length + ' items';
@@ -571,47 +550,12 @@
 
   /* ---------- HHSAR citation modal ---------- */
 
-  document.getElementById('openCitation').addEventListener('click', function (e) {
-    openModal('citationModal', e.currentTarget);
-  });
-
-  /* ---------- liner picker ---------- */
-
-  var SCENARIOS = {
-    dry: { fam: 'hdpe', why: 'High strength for its weight and economical case yields make HDPE the fit for routine dry waste.' },
-    wet: { fam: 'lldpe', why: 'Stretch and tear resistance make LLDPE the fit for heavy, wet waste.' },
-    sharp: { fam: 'lldpe', why: 'Puncture and tear resistance make LLDPE the fit for sharp-edged waste.' },
-    food: { fam: 'lldpe', why: 'LLDPE is the workhorse for clinical and food service areas.' }
-  };
-  var scenarioBtns = document.querySelectorAll('.scenario-btn');
-  Array.prototype.forEach.call(scenarioBtns, function (btn) {
-    btn.addEventListener('click', function () {
-      var key = btn.getAttribute('data-scenario');
-      var pick = SCENARIOS[key];
-      Array.prototype.forEach.call(scenarioBtns, function (b) {
-        b.setAttribute('aria-pressed', String(b === btn));
-      });
-      var hd = document.getElementById('panel-hdpe');
-      var ll = document.getElementById('panel-lldpe');
-      hd.classList.toggle('match', pick.fam === 'hdpe');
-      ll.classList.toggle('match', pick.fam === 'lldpe');
-      var why = document.getElementById('linerWhy');
-      why.textContent = pick.why;
+  var openCitation = document.getElementById('openCitation');
+  if (openCitation) {
+    openCitation.addEventListener('click', function (e) {
+      openModal('citationModal', e.currentTarget);
     });
-  });
-
-  /* ---------- support tiles expand ---------- */
-
-  Array.prototype.forEach.call(document.querySelectorAll('.tile[aria-expanded]'), function (tile) {
-    var more = tile.querySelector('.tile-more');
-    var hint = tile.querySelector('.tile-hint');
-    tile.addEventListener('click', function () {
-      var open = tile.getAttribute('aria-expanded') === 'true';
-      tile.setAttribute('aria-expanded', String(!open));
-      if (more) more.hidden = open;
-      if (hint) hint.textContent = open ? 'How to request' : 'Close';
-    });
-  });
+  }
 
   /* ---------- edge zones, buttons, swipe ---------- */
 
@@ -664,31 +608,8 @@
       runCountups(s);
       var items = s.querySelectorAll('.next-steps li');
       Array.prototype.forEach.call(items, function (li) { li.classList.add('done'); });
-      var flowSteps = s.querySelectorAll('.flow-step');
-      Array.prototype.forEach.call(flowSteps, function (f) { f.classList.add('lit'); });
-      var orderSteps = s.querySelectorAll('.order-step');
-      Array.prototype.forEach.call(orderSteps, function (f) { f.classList.add('lit'); });
     });
   });
-
-  /* ---------- order steps illuminate ---------- */
-
-  function playOrderSteps(slide) {
-    var steps = slide.querySelectorAll('.order-step');
-    if (motionReduced()) {
-      Array.prototype.forEach.call(steps, function (s) { s.classList.add('lit'); });
-      return;
-    }
-    Array.prototype.forEach.call(steps, function (s, i) {
-      s.classList.remove('lit');
-      later(function () { s.classList.add('lit'); }, 500 + i * 600);
-    });
-  }
-  var _slideMoments = slideMoments;
-  slideMoments = function (slide) {
-    _slideMoments(slide);
-    if (slide.id === 'slide-14') playOrderSteps(slide);
-  };
 
   /* ---------- boot from hash ---------- */
 
