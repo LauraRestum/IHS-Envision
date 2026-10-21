@@ -295,7 +295,6 @@
     boa: ['BOA', 'A Basic Ordering Agreement with the VA: a standing written agreement that sets the terms for orders placed as needs arise (FAR 16.703).'],
     pvon: ['PVON', 'The item-level Prime Vendor order number. Each contract item carries one, and your Prime Vendor can establish one on request.'],
     'procurement-list': ['AbilityOne Procurement List', 'The list of items that FAR 8.002 makes required sources for federal purchases. The U.S. AbilityOne Commission approves every item added and its fair market price.'],
-    hhsar: ['HHSAR', 'The acquisition regulation covering HHS agencies, including IHS. Subpart 326.6 states when the Buy Indian Act does not apply.'],
     dapa: ['DAPA', 'A Distribution and Pricing Agreement with the Defense Logistics Agency: it sets the price and distribution terms for a manufacturer\'s items ordered through a distributor.'],
     ecat: ['eCAT', 'The Defense Logistics Agency\'s Electronic Catalog for medical items, reached through the DLA Medical portal.'],
     nsn: ['NSN', 'National Stock Number: the 13-digit number that identifies an item across the federal supply system. Use it to find the item on GSA Advantage or AbilityOne.com, or to order direct from Envision.']
@@ -547,15 +546,6 @@
       openModal('explorerModal', e.currentTarget);
     });
   });
-
-  /* ---------- HHSAR citation modal ---------- */
-
-  var openCitation = document.getElementById('openCitation');
-  if (openCitation) {
-    openCitation.addEventListener('click', function (e) {
-      openModal('citationModal', e.currentTarget);
-    });
-  }
 
   /* ---------- edge zones, buttons, swipe ---------- */
 

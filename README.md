@@ -25,7 +25,7 @@ Import this repo in Vercel as a static project (no framework preset, no build co
 
 ## Item explorer data
 
-The item explorer (opened from slide 8, Contract at a glance) is populated: `data/items.js` is generated from `data/Envision_MSPV_Products.xlsx` (105 items, on contract as of September 2026) by `tools/convert_items.py`. The spreadsheet lives under `data/` so the "Download the full list (Excel)" link in the explorer deploys with the site (`tools/` is excluded by `.vercelignore`).
+The item explorer is populated, but per Dedra's October 21 edits nothing in the deck links to it any more (slide 8 shows the item count only). Its data still drives that count: `data/items.js` is generated from `data/Envision_MSPV_Products.xlsx` (105 items, on contract as of September 2026) by `tools/convert_items.py`. The spreadsheet lives under `data/` so the "Download the full list (Excel)" link in the explorer deploys with the site (`tools/` is excluded by `.vercelignore`).
 
 To refresh after the next contract modification:
 
@@ -65,7 +65,7 @@ tools/                   Item spreadsheet converter, config (excluded from deplo
 IMAGERY-AUDIT.md         Slide-by-slide imagery audit and capabilities-repo image map
 ```
 
-Slide order: 1 Title, 2 Built for federal scale, 3 How AbilityOne works, 4 Your mission and ours, 5 AbilityOne and the Buy Indian Act, 6 Everything Envision supplies (capabilities and services), 7 How to buy (contracts and channels for Wichita, Dallas and Print, plus authorized distributors), 8 Contract 36C10X23G0011 at a glance (MSPV detail and the item explorer), 9 Print, 10 Closing.
+Slide order: 1 Title, 2 Built for federal scale, 3 How AbilityOne works, 4 Your mission and ours, 5 AbilityOne and the Buy Indian Act, 6 Everything Envision supplies (capabilities and services), 7 How to buy (contracts and channels for Wichita, Dallas and Print, plus authorized distributors), 8 Contract 36C10X23G0011 at a glance (MSPV detail), 9 Print: Personalized Buying Process, 10 Closing.
 
 Removed in the October round: The AbilityOne Program (Dedra covers it in her slide 3 talking points), The MSPV program, Know your liners, Why order through MSPV, Training and support, and How to order. Slide behaviors in `js/deck.js` key off slide content (`.org`, `.next-steps`), not slide numbers, so the deck can be reordered safely.
 
