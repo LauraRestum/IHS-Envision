@@ -9,9 +9,32 @@
   var root = document.documentElement;
   var stage = document.getElementById('stage');
   var viewport = document.getElementById('viewport');
-  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
-  var total = slides.length;
+  var allSlides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  /* slides = the slides currently in the deck. Print slides drop out while
+     the Print content toggle is off, and numbering closes up around them. */
+  var slides = [];
+  var total = 0;
   var cur = 0;
+  function printShown() { return root.getAttribute('data-print') === 'show'; }
+  function inDeck(s) { return printShown() || !s.hasAttribute('data-print-content'); }
+  function refreshSlides() {
+    slides = allSlides.filter(inDeck);
+    total = slides.length;
+    slides.forEach(function (s, i) {
+      var label = s.getAttribute('aria-label') || '';
+      s.setAttribute('aria-label', label.replace(/^Slide \d+ of \d+/, 'Slide ' + (i + 1) + ' of ' + total));
+    });
+  }
+  refreshSlides();
+  /* Nearest slide still in the deck, at or after a slide that may be hidden. */
+  function deckIndexFor(el) {
+    var i = allSlides.indexOf(el);
+    for (var j = i; j < allSlides.length; j++) {
+      var k = slides.indexOf(allSlides[j]);
+      if (k !== -1) return k;
+    }
+    return total - 1;
+  }
   var timeouts = [];
 
   /* ---------- preferences ---------- */
@@ -167,7 +190,7 @@
     document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
     document.getElementById('progress').style.width = (((cur + 1) / total) * 100) + '%';
     if (!opts.silentHash) {
-      try { history.replaceState(null, '', '#slide-' + (cur + 1)); } catch (e) { /* file:// */ }
+      try { history.replaceState(null, '', '#' + slide.id); } catch (e) { /* file:// */ }
     }
     announce('Slide ' + (cur + 1) + ' of ' + total + ': ' + (slide.getAttribute('data-title') || ''));
   }
@@ -226,13 +249,17 @@
   /* ---------- overview ---------- */
 
   var ovGrid = document.getElementById('overviewGrid');
-  slides.forEach(function (s, i) {
-    var b = document.createElement('button');
-    b.className = 'overview-item';
-    b.innerHTML = '<span class="ov-num">' + (i + 1) + '</span>' + (s.getAttribute('data-title') || '');
-    b.addEventListener('click', function () { closeModal(); goTo(i, { revealAll: true }); });
-    ovGrid.appendChild(b);
-  });
+  function buildOverview() {
+    ovGrid.innerHTML = '';
+    slides.forEach(function (s, i) {
+      var b = document.createElement('button');
+      b.className = 'overview-item';
+      b.innerHTML = '<span class="ov-num">' + (i + 1) + '</span>' + (s.getAttribute('data-title') || '');
+      b.addEventListener('click', function () { closeModal(); goTo(i, { revealAll: true }); });
+      ovGrid.appendChild(b);
+    });
+  }
+  buildOverview();
   function openOverview(trigger) {
     Array.prototype.forEach.call(ovGrid.children, function (b, i) {
       b.setAttribute('aria-current', String(i === cur));
@@ -287,6 +314,28 @@
   document.getElementById('motionOn').addEventListener('click', function () { setMotion(false); });
   document.getElementById('motionOff').addEventListener('click', function () { setMotion(true); });
   refreshMotionButtons();
+
+  function refreshPrintButtons() {
+    var shown = printShown();
+    document.getElementById('printShow').setAttribute('aria-pressed', String(shown));
+    document.getElementById('printHide').setAttribute('aria-pressed', String(!shown));
+  }
+  function setPrint(show) {
+    var here = slides[cur];
+    var p = prefs();
+    if (show) { p.print = 'show'; root.setAttribute('data-print', 'show'); }
+    else { delete p.print; root.removeAttribute('data-print'); }
+    savePrefs(p);
+    refreshSlides();
+    buildOverview();
+    refreshPrintButtons();
+    if (here) here.classList.remove('active');
+    goTo(deckIndexFor(here), { revealAll: true });
+    announce(show ? 'Print content shown. ' + total + ' slides.' : 'Print content hidden. ' + total + ' slides.');
+  }
+  document.getElementById('printShow').addEventListener('click', function () { setPrint(true); });
+  document.getElementById('printHide').addEventListener('click', function () { setPrint(false); });
+  refreshPrintButtons();
 
   /* ---------- glossary popovers ---------- */
 
@@ -613,18 +662,19 @@
 
   /* ---------- boot from hash ---------- */
 
-  var start = 0;
-  var m = (location.hash || '').match(/slide-(\d+)|^#(\d+)$/);
-  if (m) {
-    var n = parseInt(m[1] || m[2], 10);
-    if (n >= 1 && n <= total) start = n - 1;
+  /* Deep links name the slide's id (#slide-9), which stays stable whether
+     or not print content is shown; a link to a hidden print slide lands on
+     the next slide in the deck. */
+  function indexFromHash() {
+    var mm = (location.hash || '').match(/slide-(\d+)|^#(\d+)$/);
+    if (!mm) return -1;
+    var el = document.getElementById('slide-' + (mm[1] || mm[2]));
+    return el && allSlides.indexOf(el) !== -1 ? deckIndexFor(el) : -1;
   }
+  var start = Math.max(0, indexFromHash());
   window.addEventListener('hashchange', function () {
-    var mm = (location.hash || '').match(/slide-(\d+)/);
-    if (mm) {
-      var nn = parseInt(mm[1], 10) - 1;
-      if (nn !== cur && nn >= 0 && nn < total) goTo(nn, { revealAll: true, silentHash: true });
-    }
+    var nn = indexFromHash();
+    if (nn !== -1 && nn !== cur) goTo(nn, { revealAll: true, silentHash: true });
   });
   goTo(start, { revealAll: start > 0 });
 })();
