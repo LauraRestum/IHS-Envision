@@ -605,6 +605,11 @@ button.ccard:hover { border-color: var(--green-text); }
 }
 .supply-tile--flag { border-color: var(--border-green); background: var(--green-dim); }
 .supply-tile--wide { grid-column: 1 / -1; }
+html[data-print="show"] .supply-tile--wide-with-print { grid-column: 1 / -1; }
+
+/* Print content toggle (Display options): hidden unless "Show print" is on.
+   !important so it holds in the print stylesheet too. */
+html:not([data-print="show"]) [data-print-content] { display: none !important; }
 .supply-t { font-size: 1rem; font-weight: 700; line-height: 1.25; }
 .supply-d { font-size: 1rem; font-weight: 500; line-height: 1.3; color: var(--text-muted); }
 .supply-flag { font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--green-text); margin-top: 2px; }

@@ -18,9 +18,10 @@ Import this repo in Vercel as a static project (no framework preset, no build co
 |---|---|
 | Advance / back | Right and Left arrows, Space, PageDown/PageUp, the Prev/Next buttons, edge tap zones, or swipe. One press per slide; builds play automatically on slide entry |
 | Overview | O opens a jump-to-any-slide grid |
-| Deep links | Every slide is addressable as `#slide-4` etc., for the follow-up email |
+| Deep links | Every slide is addressable by its id (`#slide-4` etc.), for the follow-up email. Ids stay fixed when print content is hidden, so the on-screen number can differ from the id after slide 8; a link to the hidden Print slide lands on the next slide |
 | Theme | Display button has Dark, Light, and High contrast themes, persisted per device; with no saved choice the system color scheme is honored. All three run through the same token system at WCAG 2.2 AA |
 | Motion | Display button has a persisted Reduce motion toggle; the OS `prefers-reduced-motion` setting is always honored |
+| Print content | Display button has a persisted Hide print / Show print toggle, **hidden by default** (per IHS, Nov 2026, print is not presented). Hidden removes slide 9 (Print) and the print pieces on slides 6, 7 and 10 (the Print services tile, the Envision Print panel, Rob Narron's print card); the deck renumbers to 9 slides and the PDF follows. Show print restores all of it. Elements carry `data-print-content`; nothing is deleted |
 | Leave-behind PDF | "Print / PDF" (or Ctrl/Cmd+P): one slide per page, 16:9, printed in whichever theme is active, deck chrome excluded |
 
 ## Item explorer data
